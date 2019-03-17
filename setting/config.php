@@ -50,9 +50,28 @@ class project2
 		$meadmin_login_num = $meadmin_login_run->num_rows;
 		return $meadmin_login_num;
 	}
+    
 	public function meadmin_username($adminname)
 	{
 		$meadmin_username_select = "select * from meadmin where admin_username='$adminname'";
+		$meadmin_username_run = $this->connectdb->query($meadmin_username_select);
+		return $meadmin_username_run;
+	}
+    
+    
+    /////////////////////////////// TEACHER LOGIN INFO--------------------------
+	
+	public function teacher_check($admin_username,$admin_password)
+	{
+		$meadin_login_select = "select * from teacher_info where t_username='$t_username' AND admin_password='$t_pass'";
+		$meadmin_login_run = $this->connectdb->query($meadin_login_select);
+		$meadmin_login_num = $meadmin_login_run->num_rows;
+		return $meadmin_login_num;
+	}
+    
+	public function teacher_username($adminname)
+	{
+		$meadmin_username_select = "select * from teacher_info where t_username='$adminname'";
 		$meadmin_username_run = $this->connectdb->query($meadmin_username_select);
 		return $meadmin_username_run;
 	}
