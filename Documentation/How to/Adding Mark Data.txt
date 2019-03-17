@@ -1,0 +1,9 @@
+How to add mark data (table):
+	- mark
+		- exam_term
+		- teacher_enrol
+		- student_subject_enrol
+			- subjects_info
+			- student_class_enrol
+				- class
+				- st_info
