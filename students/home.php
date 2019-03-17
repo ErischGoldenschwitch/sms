@@ -275,6 +275,41 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										</section>
 										<section id="section-5">
 											<div class="mediabox">
+                                                <table class="table table-hover"> 
+																	<thead>
+																		<tr> 
+																			<th></th> 
+																	       <th>Minimum Pass Marks</th> 
+                                                                            <th>&nbsp;</th>
+                                                                            <th>&nbsp;</th>
+																			<th>Term 1</th> 
+                                                                            <th>&nbsp;</th>
+                                                                            <th>&nbsp;</th>
+																			<th>Term 2</th>
+                                                                            <th>&nbsp;</th>
+                                                                            <th>&nbsp;</th>
+                                                                            <th>Term 3</th>
+																			
+																		</tr> 
+																	</thead> 
+																	<tbody>
+															<?php 
+															$st_grade = $student_name_display['st_grade'];
+															$sn = 1;
+															$teacher_info_in_student = $ravi->teacher_info_instudent($st_grade);
+																while($t_info = $teacher_info_in_student->fetch_assoc())		{ 
+																		?>
+																		
+																		<tr>
+																			<th scope="row"><?php echo $sn; ?></th>
+																		
+																			<td><?php echo ucwords($t_info['t_fullname']); ?></td> 
+																			<td><?php echo ucwords($t_info['subject_name']); ?></td> 
+																			
+																		</tr> 
+																		<?php $sn++; } ?>
+																	</tbody> 
+																</table>
 
 											</div>
 											<div class="mediabox">
