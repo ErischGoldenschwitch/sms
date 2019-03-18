@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2019 at 03:23 PM
+-- Generation Time: Mar 17, 2019 at 09:16 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
@@ -99,8 +99,9 @@ CREATE TABLE `exam_term` (
 --
 
 INSERT INTO `exam_term` (`id`, `name`) VALUES
-(6, 'mid_term_1'),
-(5, 'first_term');
+(2, 'Term 2'),
+(1, 'Term 1'),
+(3, 'Term 3');
 
 -- --------------------------------------------------------
 
@@ -168,6 +169,20 @@ CREATE TABLE `mark` (
   `lastModified` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `mark`
+--
+
+INSERT INTO `mark` (`mcode`, `ssecode`, `tecode`, `term`, `mark`, `year`, `createDate`, `lastModified`) VALUES
+(1, 1, 1, 1, '80', 2019, '2019-03-18 00:00:00', '2019-03-18 00:00:00'),
+(2, 2, 1, 1, '74', 2019, '2019-03-18 00:00:00', '2019-03-18 00:00:00'),
+(3, 3, 1, 1, '70', 2019, '2019-03-18 00:00:00', '2019-03-18 00:00:00'),
+(4, 4, 1, 1, '82', 2019, '2019-03-18 00:00:00', '2019-03-18 00:00:00'),
+(5, 5, 1, 1, '78', 2019, '2019-03-18 00:00:00', '2019-03-18 00:00:00'),
+(6, 6, 1, 1, '67', 2019, '2019-03-18 00:00:00', '2019-03-18 00:00:00'),
+(7, 7, 1, 1, '80', 2019, '2019-03-18 00:00:00', '2019-03-18 00:00:00'),
+(8, 8, 1, 1, '70', 2019, '2019-03-18 00:00:00', '2019-03-18 00:00:00');
+
 -- --------------------------------------------------------
 
 --
@@ -226,6 +241,14 @@ CREATE TABLE `student_class_enrol` (
   `lastModified` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `student_class_enrol`
+--
+
+INSERT INTO `student_class_enrol` (`sccode`, `scode`, `class`, `year`, `createDate`, `lastModified`) VALUES
+(1, 1, 1, 2019, '2019-03-18 00:00:00', '2019-03-18 00:00:00'),
+(2, 2, 1, 2019, '2019-03-18 00:00:00', '2019-03-18 00:00:00');
+
 -- --------------------------------------------------------
 
 --
@@ -240,6 +263,20 @@ CREATE TABLE `student_subject_enrol` (
   `createDate` datetime NOT NULL,
   `lastModified` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `student_subject_enrol`
+--
+
+INSERT INTO `student_subject_enrol` (`scecode`, `sccode`, `subject`, `year`, `createDate`, `lastModified`) VALUES
+(1, 1, 1, 2019, '2019-03-18 00:00:00', '2019-03-18 00:00:00'),
+(2, 1, 2, 2019, '2019-03-18 00:00:00', '2019-03-18 00:00:00'),
+(3, 1, 3, 2019, '2019-03-18 00:00:00', '2019-03-18 00:00:00'),
+(4, 1, 4, 2019, '2019-03-18 00:00:00', '2019-03-18 00:00:00'),
+(5, 2, 1, 2019, '2019-03-18 00:00:00', '2019-03-18 00:00:00'),
+(6, 2, 2, 2019, '2019-03-18 00:00:00', '2019-03-18 00:00:00'),
+(7, 2, 3, 2019, '2019-03-18 00:00:00', '2019-03-18 00:00:00'),
+(8, 2, 4, 2019, '2019-03-18 00:00:00', '2019-03-18 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -778,6 +815,12 @@ ALTER TABLE `student_class_enrol`
   ADD PRIMARY KEY (`sccode`);
 
 --
+-- Indexes for table `student_subject_enrol`
+--
+ALTER TABLE `student_subject_enrol`
+  ADD PRIMARY KEY (`scecode`);
+
+--
 -- Indexes for table `st_info`
 --
 ALTER TABLE `st_info`
@@ -845,7 +888,7 @@ ALTER TABLE `grade`
 -- AUTO_INCREMENT for table `mark`
 --
 ALTER TABLE `mark`
-  MODIFY `mcode` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `mcode` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `meadmin`
@@ -863,7 +906,7 @@ ALTER TABLE `result`
 -- AUTO_INCREMENT for table `student_class_enrol`
 --
 ALTER TABLE `student_class_enrol`
-  MODIFY `sccode` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `sccode` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `st_info`
