@@ -26,7 +26,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <html>
 
 <head>
-	<title>Augment an Admin Panel Category Flat Bootstrap Responsive Web Template | Home :: w3layouts</title>
+	<title>Students Home Portal</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="Augment Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -275,6 +275,44 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										</section>
 										<section id="section-5">
 											<div class="mediabox">
+                                                <p> <strong>Results for 
+													<?php echo ucfirst($student_name_display['st_fullname']); ?>.                  </strong>
+												</p>
+                                                <table class="table table-hover"> 
+																	<thead>
+																		<tr> 
+																			<th></th> 
+																	       <th>Minimum Pass Marks</th> 
+                                                                            <th>&nbsp;</th>
+                                                                            <th>&nbsp;</th>
+																			<th>Term 1</th> 
+                                                                            <th>&nbsp;</th>
+                                                                            <th>&nbsp;</th>
+																			<th>Term 2</th>
+                                                                            <th>&nbsp;</th>
+                                                                            <th>&nbsp;</th>
+                                                                            <th>Term 3</th>
+																			
+																		</tr> 
+																	</thead> 
+																	<tbody>
+															<?php 
+															$st_grade = $student_name_display['st_grade'];
+															$sn = 1;
+															$teacher_info_in_student = $ravi->teacher_info_instudent($st_grade);
+																while($t_info = $teacher_info_in_student->fetch_assoc())		{ 
+																		?>
+																		
+																		<tr>
+																			<th scope="row"><?php echo $sn; ?></th>
+																		
+																			<td><?php echo ucwords($t_info['t_fullname']); ?></td> 
+																			<td><?php echo ucwords($t_info['subject_name']); ?></td> 
+																			
+																		</tr> 
+																		<?php $sn++; } ?>
+																	</tbody> 
+																</table>
 
 											</div>
 											<div class="mediabox">

@@ -26,8 +26,6 @@
 											
 							</select>
 								<input type="submit" name="students_info" class="btn red" value="View Class Data">
-                                <input type="submit" name="enter_grade_info" class="btn red" value="Enter Grade Data">
-                                <input type="submit" name="view_subject_info" class="btn red" value="View Subject Data">
 									</form>	
 										<?php
 										

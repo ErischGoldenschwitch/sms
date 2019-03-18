@@ -89,7 +89,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				
 				
 				
-				$homepage = "home1";
+				$homepage = "homereport";
 				if(isset($_GET['ravi']))
 				{
 					$homepage = $_GET['ravi'];
@@ -135,10 +135,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<!--//down-->
 			<div class="menu">
 				<ul id="menu">
-				
 					<li><a href="home.php"><i class="fa fa-tachometer"></i> <span>Dashboard</span></a></li>
 					<li><a href="report.php"><i class="fa fa-table"></i> <span>Subject Report</span></a></li>
-					<li><a href="report.php"><i class="fa fa-table"></i> <span>Student Report</span></a></li>
+					<li><a href="report2.php"><i class="fa fa-table"></i> <span>Student Report</span></a></li>
 					<li id="menu-academico"><a href="#"><i class="fa fa-table"></i> <span>Students</span> <span class="fa fa-angle-right" style="float: right"></span></a>
 						<ul id="menu-academico-sub">
 							<li id="menu-academico-avaliacoes"><a href="home.php?ravi=student-information">Students Information</a></li>

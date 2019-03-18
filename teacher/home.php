@@ -7,10 +7,10 @@ if(!$_SESSION['meadmin'])
 }
 else
 {
-	$adminname = $_SESSION['meadmin'];
-	$meadmin_username = $ravi->meadmin_username($adminname);
+	$adminname = $_SESSION['teacher_info'];
+	$meadmin_username = $ravi->teacher_username($adminname);
 	$meadmin_username_display = $meadmin_username->fetch_assoc();
-	$meadmin_info= $meadmin_username_display['admin_username']; 
+	$meadmin_info= $meadmin_username_display['t_username']; 
 	$t_staff_type = $meadmin_username_display['t_staff_type'];
 	$info = $ravi->teacher_info($adminname,$t_staff_type);
 	$info_display = $info->fetch_assoc();
@@ -135,10 +135,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<!--//down-->
 			<div class="menu">
 				<ul id="menu">
-				
 					<li><a href="home.php"><i class="fa fa-tachometer"></i> <span>Dashboard</span></a></li>
-					<li><a href="report.php"><i class="fa fa-table"></i> <span>Subject Report</span></a></li>
-					<li><a href="report.php"><i class="fa fa-table"></i> <span>Student Report</span></a></li>
 					<li id="menu-academico"><a href="#"><i class="fa fa-table"></i> <span>Students</span> <span class="fa fa-angle-right" style="float: right"></span></a>
 						<ul id="menu-academico-sub">
 							<li id="menu-academico-avaliacoes"><a href="home.php?ravi=student-information">Students Information</a></li>
