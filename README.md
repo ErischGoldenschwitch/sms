@@ -1,1 +1,1 @@
-# sms
+# School Management System (sms)
