@@ -22,7 +22,7 @@
 		 $stmt=$connectdb->prepare("SELECT MAX(A.mark) as mark, C.subject_name,E.st_fullname 
 		 FROM mark A inner join student_subject_enrol B on A.ssecode=B.scecode inner join 
 		 subjects_info C on B.subject=C.id inner join 
-		 student_class_enrol D on B.sccode=B.sccode inner join 
+		 student_class_enrol D on D.sccode=B.sccode inner join 
 		 st_info E on D.scode=E.st_id GROUP By C.subject_name");
 		  		 
 $term1->execute();

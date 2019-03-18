@@ -22,7 +22,7 @@
 		 $stmt=$connectdb->prepare("SELECT MAX(A.mark) as mark, C.subject_name,E.st_fullname 
 		 FROM mark A inner join student_subject_enrol B on A.ssecode=B.scecode inner join 
 		 subjects_info C on B.subject=C.id inner join 
-		 student_class_enrol D on B.sccode=B.sccode inner join 
+		 student_class_enrol D on D.sccode=B.sccode inner join 
 		 st_info E on D.scode=E.st_id GROUP By C.subject_name");
 		  		 
 $term1->execute();
@@ -40,10 +40,12 @@ $jterm5;
 $jterm6;
 $json7=[];
 $json8=[];
+$json9=[];
 while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
 	extract($row);
 	$json7[]= (int)$mark;
-	$json8[]= $subject_name;
+	$json8[]= $st_fullname;
+	$json9[]= $subject_name;
 }
 //echo json_encode($json7);
 	//	 echo json_encode($json8);
@@ -106,12 +108,13 @@ Subjects
 <script type="text/javascript">
 var ctx = document.getElementById('subject').getContext('2d');
 var myChart = new Chart(ctx, {
-    type: 'line',
+    type: 'bar',
     data: {
         labels: <?php echo json_encode($json8)?>,
         datasets: [{
             label:'Highest Mark per Subject',
 		data: <?php echo json_encode($json7)?>,
+		labels:<?php echo json_encode($json9)?>,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
