@@ -246,10 +246,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 																	<thead>
 																		<tr> 
 																			<th>#</th> 
-																	 
 																			<th>Teacher Name</th> 
 																			<th>Subject</th>
-																			
 																		</tr> 
 																	</thead> 
 																	<tbody>
@@ -263,7 +261,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 																		<tr>
 																			<th scope="row"><?php echo $sn; ?></th>
 																		
-																			<td><?php echo ucwords($t_info['t_fullname']); ?></td> 
+																			<td><?php echo ucwords($t_info['st_fullname']); ?></td> 
 																			<td><?php echo ucwords($t_info['subject_name']); ?></td> 
 																			
 																		</tr> 
@@ -274,46 +272,38 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											</div>
 										</section>
 										<section id="section-5">
-											<div class="mediabox">
-                                                <p> <strong>Results for 
-													<?php echo ucfirst($student_name_display['st_fullname']); ?>.                  </strong>
+                                            <table class="table table-hover"> 
+                                               <p><strong> Results for <?php echo ucfirst($student_name_display['st_fullname']); ?>. In grade <?php echo ucfirst($student_name_display['st_grade']); ?>.</strong>
 												</p>
-                                                <table class="table table-hover"> 
 																	<thead>
 																		<tr> 
-																			<th></th> 
-																	       <th>Minimum Pass Marks</th> 
-                                                                            <th>&nbsp;</th>
-                                                                            <th>&nbsp;</th>
+																			<th>#</th> 
+																			<th>Minimum Pass Mark</th> 
 																			<th>Term 1</th> 
-                                                                            <th>&nbsp;</th>
-                                                                            <th>&nbsp;</th>
 																			<th>Term 2</th>
-                                                                            <th>&nbsp;</th>
-                                                                            <th>&nbsp;</th>
-                                                                            <th>Term 3</th>
+																			<th>Term 3</th> 
 																			
 																		</tr> 
 																	</thead> 
-																	<tbody>
-															<?php 
-															$st_grade = $student_name_display['st_grade'];
-															$sn = 1;
-															$teacher_info_in_student = $ravi->teacher_info_instudent($st_grade);
-																while($t_info = $teacher_info_in_student->fetch_assoc())		{ 
-																		?>
-																		
-																		<tr>
-																			<th scope="row"><?php echo $sn; ?></th>
-																		
-																			<td><?php echo ucwords($t_info['t_fullname']); ?></td> 
-																			<td><?php echo ucwords($t_info['subject_name']); ?></td> 
-																			
-																		</tr> 
-																		<?php $sn++; } ?>
-																	</tbody> 
-																</table>
-
+                                                <?Php
+                                                //Get student data   
+                                                //&test = $student_name_display['$st_username'];
+                                                $test = $ravi->student_term_report_student($st_username);
+													$t_sn = 1;//This is the counter variable
+													while($student_term_report =$test->fetch_assoc())					{						
+                                            ?>							
+                                                <tr>
+                                                    <th scope="row"><?php echo $t_sn; ?></th>
+													<th></th>
+														<td><?php echo $student_term_report['st_id']; ?></td>
+												    	<td><?php echo $student_term_report['st_fullname']; ?></td>
+																		</tr>
+																<?php $t_sn++; } ?>
+                                          
+                                                 
+                                            </table>
+											<div class="mediabox">
+                                               
 											</div>
 											<div class="mediabox">
 

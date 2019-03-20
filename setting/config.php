@@ -239,5 +239,33 @@ class project2
 			}
 			return 	$Nepdev_Run;
 	}
+    /////////////////////////Start of Student Reports///////////////////////////////////////////////////////////////////////////////////////////////
+/*public function teacher_info_display_admin()
+	{
+		$teacher_info_admin = "select * from teacher_info";
+		$teacher_info_admin_run = $this->connectdb->query($teacher_info_admin);
+		return $teacher_info_admin_run;
+	}*/
+public function student_term_report_student($st_username)
+	{
+		$student_term_report = "select * from st_info where st_username='$st_username'";
+		$student_term_report_run = $this->connectdb->query($student_term_report);
+		return $student_term_report_run;
+	}
+
+/////////////////////////End of Student Reports////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 	}
 $ravi = new project2;
