@@ -271,37 +271,64 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 															</div>
 											</div>
 										</section>
-										<section id="section-5">
+										<section id="section-5">   
                                             <table class="table table-hover"> 
-                                               <p><strong> Results for <?php echo ucfirst($student_name_display['st_fullname']); ?>. In grade <?php echo ucfirst($student_name_display['st_grade']); ?>.</strong>
+                                                
+                                                <p><strong> Results for <?php echo ucfirst($student_name_display['st_fullname']); ?>. In grade <?php    echo ucfirst($student_name_display['st_grade']); ?>.</strong>
 												</p>
-																	<thead>
-																		<tr> 
-																			<th>#</th> 
-																			<th>Minimum Pass Mark</th> 
-																			<th>Term 1</th> 
-																			<th>Term 2</th>
-																			<th>Term 3</th> 
+								                    <thead>
+												        <tr> 
+												            <th>#</th> 
+												            <th>Minimum Pass Mark</th> 
+												            <th>Term 1</th> 
+												            <th>Term 2</th>
+												            <th>Term 3</th> 
 																			
-																		</tr> 
-																	</thead> 
-                                                <?Php
-                                                //Get student data   
-                                                //&test = $student_name_display['$st_username'];
-                                                $test = $ravi->student_term_report_student($st_username);
-													$t_sn = 1;//This is the counter variable
-													while($student_term_report =$test->fetch_assoc())					{						
-                                            ?>							
-                                                <tr>
-                                                    <th scope="row"><?php echo $t_sn; ?></th>
-													<th></th>
-														<td><?php echo $student_term_report['st_id']; ?></td>
-												    	<td><?php echo $student_term_report['st_fullname']; ?></td>
-																		</tr>
-																<?php $t_sn++; } ?>
-                                          
-                                                 
-                                            </table>
+												        </tr> 
+												    </thead> 
+												<tbody>
+                                            <!--Get Student class enrollment-->
+                                            <?php
+                                                $msg = "";
+                                                $i=0;   
+                                                $stdClassEnroll = 0 ;
+                                                
+                                               
+                                                $st_id = $student_name_display['st_id'];
+															$sn = 1;
+															$info_student_class_enrollment = $ravi->find_student_class_enrollment($st_id);
+																while($t_info = $info_student_class_enrollment->fetch_assoc())		{ 
+																		?>
+																		<?php //echo ($t_info['sccode']); 
+                                                                            $stdClassEnroll = $t_info['sccode'];
+                                                                            //echo $stdClassEnroll;
+                                                                        ?>                                     
+																		<?php }
+                                                //echo $stdClassEnroll;
+                                            ?>
+                                            <?php
+                                                $msg = "";
+                                                $i=0;   
+                                                $stdClassEnroll = 0 ;
+                                                
+                                               //Get Student class enrollment
+                                                $st_id = $student_name_display['st_id'];
+															$sn = 1;
+															$info_student_class_enrollment = $ravi->find_student_class_enrollment($st_id);
+																while($t_info = $info_student_class_enrollment->fetch_assoc())		{ 
+																		?>
+																		<?php //echo ($t_info['sccode']); 
+                                                                            $stdClassEnroll = $t_info['sccode'];
+                                                                            //echo $stdClassEnroll;
+                                                                        ?>                                     
+																		<?php }
+                                                //echo $stdClassEnroll;
+                                            ?>        
+                                                
+                                            </tbody> 
+                                                
+																</table>
+                                                
 											<div class="mediabox">
                                                
 											</div>

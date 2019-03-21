@@ -246,12 +246,126 @@ class project2
 		$teacher_info_admin_run = $this->connectdb->query($teacher_info_admin);
 		return $teacher_info_admin_run;
 	}*/
-public function student_term_report_student($st_username)
-	{
-		$student_term_report = "select * from st_info where st_username='$st_username'";
+    ////////////////////////////////////Prototype//////////////////////////////////////////////////////////////////
+
+    public function find_student_class_enrollment($st_id){
+        $studentClassEnrollment = "SELECT `sccode` FROM `student_class_enrol` WHERE `scode`='$st_id'";
+        $studentClassEnrollment_run = $this->connectdb->query($studentClassEnrollment);
+        return $studentClassEnrollment_run;
+    }
+    
+    public function get_subject_code($st_id){
+        $stdClassEnrollment = find_student_class_enrollment($st_id);
+        
+        $getSubjectCode = "SELECT 'scecode' FROM `student_subject_enrol` where `sccode` = '$stdClassEnrollment'";
+        $getSubjectCode_run = $this->connectdb->query($getSubjectCode);
+        return $getSubjectCode_run;
+    }
+    public function get_subject_description ($st_grade){
+        
+        $subjectCodeArray = get_subject_code($st_id);
+        alertPhp($subjectCodeArray);
+        
+        for( $i = 0; $i <= count((array)$subjectCodeArray); $i++ ){
+            echo $subjectCodeArray[i];
+            $getSubjectDescript = "select subject_name FROM `subjects_info` WHERE `id` ='$subjectCodeArray[i]'";
+            $getSubjectDescript_run = $this->connectdb->query($getSubjectDescript);
+        }
+        return $getSubjectDescript_run;
+        
+        /*$getSubjectDescript = "select * from subjects_info where grade='$st_grade'";
+		$getSubjectDescript_run = $this->connectdb->query($getSubjectDescript);
+		return $getSubjectDescript_run;*/
+    }
+    /*public function alertPhp($msg){       
+         echo '<script>alert("'.$msg.'");</script>'
+    }*/
+    
+    public function info_instudent($st_id){
+        
+        $studentClassEnrollment = "SELECT `sccode` FROM `student_class_enrol` WHERE `scode`='$st_id'";
+        $studentClassEnrollment_run = $this->connectdb->query($studentClassEnrollment);
+        $stdClassEnrol = $studentClassEnrollment_run;
+        
+        
+        for( $i; $i<count($stdClassEnrol); $i++){
+            $getSubjectDescript = "select subject_name FROM `subjects_info` WHERE `id` ='$stdClassEnrol[i]'";
+            $getSubjectDescript_run = $this->connectdb->query($getSubjectDescript);
+            
+        }
+        return $getSubjectDescript_run;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public function student_term1_report_student($st_id)
+	{     
+        $term = 5;
+		$subjectCodes = get_subject_code($st_id);
+        
+        // needed is the description on subject_info table
+    
+        $student_term_report = "select * from marks where ssecode='$studentClassEnrollment' and term = 5";
 		$student_term_report_run = $this->connectdb->query($student_term_report);
 		return $student_term_report_run;
 	}
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    public function student_term2_report_student($st_id)
+	{
+		$student_term_report = "select * from marks where ssecode='$st_id' and term = 6";
+		$student_term_report_run = $this->connectdb->query($student_term_report);
+		return $student_term_report_run;
+	}
+    public function student_term3_report_student($st_id)
+	{
+		$student_term_report = "select * from marks where ssecode='$st_id' and term = 7";
+		$student_term_report_run = $this->connectdb->query($student_term_report);
+		return $student_term_report_run;
+	}
+     public function student_sce_term1_subjects($st_id)
+	{
+		$student_term_report = "select * from student_class_enrol where ssecode='$st_id' and term = 7";
+		$student_term_report_run = $this->connectdb->query($student_term_report);
+		return $student_term_report_run;
+	}
+    public function student_sce_term2_subjects($st_id)
+	{
+		$student_term_report = "select * from student_class_enrol where ssecode='$st_id' and term = 7";
+		$student_term_report_run = $this->connectdb->query($student_term_report);
+		return $student_term_report_run;
+	}
+    public function student_sce_term3_subjects($st_id)
+	{
+		$student_term_report = "select * from student_class_enrol where ssecode='$st_id' and term = 7";
+		$student_term_report_run = $this->connectdb->query($student_term_report);
+		return $student_term_report_run;
+	}
+    public function student_term1_subjects($st_id)
+	{
+		$student_term_report = "select * from student_class_enrol where ssecode='$st_id' and term = 7";
+		$student_term_report_run = $this->connectdb->query($student_term_report);
+		return $student_term_report_run;
+	}
+    public function student_term2_subjects($st_id)
+	{
+		$student_term_report = "select * from student_class_enrol where ssecode='$st_id' and term = 7";
+		$student_term_report_run = $this->connectdb->query($student_term_report);
+		return $student_term_report_run;
+	}
+    public function student_term3_subjects($st_id)
+	{
+		$student_term_report = "select * from student_class_enrol where ssecode='$st_id' and term = 7";
+		$student_term_report_run = $this->connectdb->query($student_term_report);
+		return $student_term_report_run;
+	}
+
 
 /////////////////////////End of Student Reports////////////////////////////////////////////////////////////////////////////////////////////////
     
