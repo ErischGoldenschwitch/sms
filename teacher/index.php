@@ -11,18 +11,18 @@ session_start();
 if(isset($_POST['admin_signin']))
 {
 	
-	$admin_username = mysqli_real_escape_string($ravi->hackme(),$_POST['t_username']);
-    $admin_password = mysqli_real_escape_string($ravi->hackme(),$_POST['t_pass']);
-	if($t_username=="" AND $t_pass=="")
+	$admin_username = mysqli_real_escape_string($ravi->hackme(),$_POST['admin_username']);
+    $admin_password = mysqli_real_escape_string($ravi->hackme(),$_POST['admin_password']);
+	if($admin_username=="" AND $admin_password=="")
 	{
-		echo "<script>alert('dont leave blank');</script>";
+		echo "<script>alert('Enter Your Username & Password');</script>";
 	}
 	else
 	{
-		$melogin = $ravi->teacher_check($t_username,$t_pass);
+		$melogin = $ravi->meadmin_check($admin_username,$admin_password);
 			if($melogin==1)
 	{
-	$_SESSION['teacher'] = 	$t_username;
+	$_SESSION['meadmin'] = 	$admin_username;
 		header("location:home.php");
 	}
 		
@@ -75,17 +75,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 												
 													<div class="error-top">
 													
-														<h2 class="inner-tittle page">Login</h2>
+														<h2 class="inner-tittle page">Teacher Login</h2>
 													
 													    <div class="login">
-															<h3 class="inner-tittle t-inner">RR E-Learning House Login</h3>
+															<h3 class="inner-tittle t-inner">Login</h3>
 														
 																<div class="buttons login">
-																			<ul>
-																				<li><a href="#" class="hvr-sweep-to-right">Facebook</a></li>
-																				<li class="lost"><a href="#" class="hvr-sweep-to-left">Twitter</a> </li>
-																				<div class="clearfix"></div>
-																			</ul>
+																			
 																		</div>
 																<form method="post">
 					<input type="text" class="text" name="admin_username" placeholder="Username" value="<?php if(isset($_POST['admin_signin'])){ echo $_POST['admin_username']; } ?>">

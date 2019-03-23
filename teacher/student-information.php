@@ -17,15 +17,22 @@
 												$opt = $ravi->grade($grade);
 													while($op=$opt->fetch_assoc())
 													{
-														
-													
+				
 													?>
 												
 							<option value="<?php echo $op['class']; ?>"><?php echo $op['class']; ?></option>
 													<?php }?>
+                                    
+                                    
 											
 							</select>
-								<input type="submit" name="students_info" class="btn red" value="View Class Data">
+                                                
+                                                
+							<input type="submit" name="students_info" class="btn red" value="View Class Data">
+                           <li id="menu-academico-avaliacoes"><a href="home.php?ravi=edit-general-information">Edit General Information</a></li>
+                                                    
+                                                
+                                              
 									</form>	
 										<?php
 										
@@ -33,13 +40,9 @@
 										{
 											$class_students_data = $_POST['class_students_data'];
 										$student_dis_admin=	$ravi->student_info_display_admin($class_students_data);
-											$s_sn = 1;
-														
-										
-										?>
-										
-										
-															  <div class="graph">
+											$s_sn = 1;	
+                                            ?>
+													  <div class="graph">
 															<div class="tables">
 														
 																<table class="table table-bordered "> 

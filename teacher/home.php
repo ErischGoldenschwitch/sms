@@ -7,10 +7,10 @@ if(!$_SESSION['meadmin'])
 }
 else
 {
-	$adminname = $_SESSION['teacher_info'];
-	$meadmin_username = $ravi->teacher_username($adminname);
+	$adminname = $_SESSION['meadmin'];
+	$meadmin_username = $ravi->meadmin_username($adminname);
 	$meadmin_username_display = $meadmin_username->fetch_assoc();
-	$meadmin_info= $meadmin_username_display['t_username']; 
+	$meadmin_info= $meadmin_username_display['admin_username']; 
 	$t_staff_type = $meadmin_username_display['t_staff_type'];
 	$info = $ravi->teacher_info($adminname,$t_staff_type);
 	$info_display = $info->fetch_assoc();
@@ -125,7 +125,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="down">
 				<a href="index.html"><img src="images/admin.jpg"></a>
 				<a href="index.php"><span class=" name-caret"><?php echo $info_display['t_fullname']; ?></span></a>
-				<p>System Administrator in Company</p>
+				<p>Teacher</p>
 				<ul>
 					<li><a class="tooltips" href="index.html"><span>Profile</span><i class="lnr lnr-user"></i></a></li>
 					<li><a class="tooltips" href="index.html"><span>Settings</span><i class="lnr lnr-cog"></i></a></li>
@@ -139,30 +139,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<li id="menu-academico"><a href="#"><i class="fa fa-table"></i> <span>Students</span> <span class="fa fa-angle-right" style="float: right"></span></a>
 						<ul id="menu-academico-sub">
 							<li id="menu-academico-avaliacoes"><a href="home.php?ravi=student-information">Students Information</a></li>
-							<li id="menu-academico-boletim"><a href="home.php?ravi=add-student">Add Students</a></li>
-							<li id="menu-academico-avaliacoes"><a href="calender.html">Delete Students</a></li>
+							
 
 						</ul>
 					</li>
-				<li id="menu-academico"><a href="#"><i class="fa fa-table"></i> <span>Database</span> <span class="fa fa-angle-right" style="float: right"></span></a>
-						<ul id="menu-academico-sub">
-							<li id="menu-academico-avaliacoes"><a href="home.php?ravi=student-information">Database Information</a></li>
-							<li id="menu-academico-boletim"><a href="home.php?ravi=add-table">Add Database</a></li>
-							<li id="menu-academico-avaliacoes"><a href="calender.html">Edit Database</a></li>
-							<li id="menu-academico-avaliacoes"><a href="calender.html">Delete Database</a></li>
+                    
+                    <li id="menu-academico"><a href="#"><i class="fa fa-file-text-o"></i> <span>Student Marks</span> <span class="fa fa-angle-right" style="float: right"></span></a>
+					<ul id="menu-academico-sub">
+							<li id="menu-academico-avaliacoes"><a href="home.php?ravi=add-marks">Edit marks</a></li>
+                            <li id="menu-academico-avaliacoes"><a href="home.php?ravi=marks-routine">View Marks</a></li>
+						
 						</ul>
 					</li>
+				
 					
 					<li id="menu-academico"><a href="#"><i class="fa fa-file-text-o"></i> <span>Teacher</span> <span class="fa fa-angle-right" style="float: right"></span></a>
 						
 					<ul id="menu-academico-sub">
 							<li id="menu-academico-avaliacoes"><a href="home.php?ravi=teacher-information">Teacher Information</a></li>
-							<li id="menu-academico-avaliacoes"><a href="home.php?ravi=teacher-edit">Edit Teacher</a></li>
-							<li id="menu-academico-boletim"><a href="home.php?ravi=teacher-add">Add Teacher</a></li>
-							<li id="menu-academico-avaliacoes"><a href="home.php?ravi=teacher-delete">Delete Teacher</a></li>
-
+							
 						</ul>
 					</li>
+                    
+                    
 					
 					<li id="menu-academico"><a href="#"><i class="fa fa-file-text-o"></i> <span>Parents</span> <span class="fa fa-angle-right" style="float: right"></span></a>
 					<ul id="menu-academico-sub">
