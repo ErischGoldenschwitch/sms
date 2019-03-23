@@ -26,7 +26,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <html>
 
 <head>
-	<title>Augment an Admin Panel Category Flat Bootstrap Responsive Web Template | Home :: w3layouts</title>
+	<title>Students Home Portal</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="Augment Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -246,10 +246,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 																	<thead>
 																		<tr> 
 																			<th>#</th> 
-																	 
 																			<th>Teacher Name</th> 
 																			<th>Subject</th>
-																			
 																		</tr> 
 																	</thead> 
 																	<tbody>
@@ -263,7 +261,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 																		<tr>
 																			<th scope="row"><?php echo $sn; ?></th>
 																		
-																			<td><?php echo ucwords($t_info['t_fullname']); ?></td> 
+																			<td><?php echo ucwords($t_info['st_fullname']); ?></td> 
 																			<td><?php echo ucwords($t_info['subject_name']); ?></td> 
 																			
 																		</tr> 
@@ -273,9 +271,112 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 															</div>
 											</div>
 										</section>
-										<section id="section-5">
+										<section id="section-5">     
+                                                   <p><strong> Results for <?php echo ucfirst($student_name_display['st_fullname']); ?>. In grade <?php    echo ucfirst($student_name_display['st_grade']); ?>.</strong>
+												</p>
+								                 <!--Get Student class enrollment-->
+                                            <?php
+                                            //Use Student Id Key to access the Student Class Enrollment Key. The student id was retrieved earlier.
+                                                $stdClassEnroll = 0 ;
+                                                $st_id = $student_name_display['st_id'];
+															$sn = 1;
+															$info_student_class_enrollment = $ravi->find_student_class_enrollment($st_id);
+																while($t_info = $info_student_class_enrollment->fetch_assoc())		{ 
+																		?>
+																		<?php 
+                                                                            $stdClassEnroll = $t_info['sccode'];
+                                                                            //echo $stdClassEnroll;
+                                                                        ?>                                     
+																		<?php }
+                                                //echo $stdClassEnroll;
+                                            ?>
+                                            <!--Get subject codes-->
+                                               <?php
+                                                //Use Student Class Enrollment Key to access the subject code key
+                                                			$sn = 0;
+                                                            $subjectArray;															
+                                                            $info_student_class_subject = $ravi->get_subject_code($stdClassEnroll);
+																while($t_info = $info_student_class_subject->fetch_assoc())		{ 
+																		?>
+																		<?php 
+                                                                            $stdSubject = $t_info['subject'];
+                                                                            $subjectArray [$sn]= $stdSubject;
+                                                                        ?>                                     
+																		<?php $sn++; }
+                                            ?>    
+                                            <!--Get Subject Descriptions -->
+                                            <?php 
+                                                for ($i=0;$i<count($subjectArray);$i++){
+                                                    $singleSubjectCode = $subjectArray[$i];
+                                                    $descript_student_class_subject = $ravi->get_subject_description($singleSubjectCode);//This is //null because it has not fetched the associated variables yet.
+                                                    $subject_info[$i] = $descript_student_class_subject->fetch_assoc();
+                                                    $subjectDescriptArray[$i] = $subject_info[$i];
+                                                    
+                                                    
+                                                }
+                                            ?>    
+                                            <!--Get Marks for all terms -->
+                                            <?php 
+                                                for ($i=0;$i<count($subjectArray);$i++){
+                                                    //echo $i = 0,1,2,3,4,5,6
+                                                    //echo $singleSubjectCode = 7,8,9,1,2,3,4
+                                                    //ech $stdClassEnroll = 3
+                                                                                 
+                                                    $singleSubjectCode = $subjectArray[$i];
+                                                    
+                                                    $termOne = $ravi-> student_term_marks($stdClassEnroll, $singleSubjectCode ,'5');
+                                                    $termTwo = $ravi-> student_term_marks($stdClassEnroll, $singleSubjectCode ,6);
+                                                    $termThree = $ravi-> student_term_marks($stdClassEnroll, $singleSubjectCode ,7);
+                                                    $resultsTermOne[$i] = $termOne->fetch_assoc();
+                                                    $resultsTermTwo[$i] = $termTwo->fetch_assoc();
+                                                    $resultsTermThree[$i] = $termThree->fetch_assoc();
+                                                    $resultsTermOneArray[$i] = $resultsTermOne[$i];
+                                                    $resultsTermTwoArray[$i] = $resultsTermTwo[$i];
+                                                    $resultsTermThreeArray[$i] = $resultsTermThree[$i];      
+                                                }
+                                            ?>
+                                            <table class="table table-hover"> 
+                                                <?php $sn = 0; ?>
+                                                <?php
+                                                $subjectCount = count($subjectDescriptArray); 
+                                                //echo $subjectCount;
+                                                     echo "<thead>
+															<tr> 
+															<th>#</th> 
+                                                            <th>Subject </th>
+															<th>Minimum Pass Mark</th> 
+															<th>Term 1 %</th>
+                                                            <th>Term 2 %</th>
+                                                            <th>Term 3 %</th>
+															</tr> 
+															</thead> 
+															<tbody>";
+                                                    for($i = 0 ; $i < $subjectCount ; $i++){ ?>
+                                                        <?php
+                                                        echo "<tr> \n
+                                                                <th scope=\"row\">";
+                                                        echo $sn+1;
+                                                        echo "</th>
+																    <td>";
+                                                        echo implode(', ', (array)$subjectDescriptArray[$sn]); 
+                                                        echo        "</td> 
+																    <td>50%</td>
+                                                                    <td>";
+                                                        echo implode (', ',(array)$resultsTermOneArray[$sn]);  
+                                                        echo        "</td>
+                                                                    <td>";
+                                                        echo implode (', ',(array)$resultsTermTwoArray[$sn]);
+                                                        echo       "</td>
+                                                                    <td>";
+                                                        echo implode (', ',(array)$resultsTermThreeArray[$sn]);
+                                                        echo       "</td>";
+																	$sn++;
+                                                        echo " </tr>";             
+                                                          }
+                                                     ?>
+											</table>
 											<div class="mediabox">
-
+                                               
 											</div>
 											<div class="mediabox">
 

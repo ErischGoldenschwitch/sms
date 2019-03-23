@@ -239,5 +239,62 @@ class project2
 			}
 			return 	$Nepdev_Run;
 	}
+    /////////////////////////Start of Student Reports///////////////////////////////////////////////////////////////////////////////////////////////
+
+    ////////////////////////////////////Prototyping//////////////////////////////////////////////////////////////////
+
+    public function find_student_class_enrollment($st_id){
+        $studentClassEnrollment = "SELECT `sccode` FROM `student_class_enrol` WHERE `scode`='$st_id'";
+        $studentClassEnrollment_run = $this->connectdb->query($studentClassEnrollment);
+        return $studentClassEnrollment_run;
+    }
+    
+    public function get_subject_code($stdClassEnrollment){      
+        $getSubjectCode = "SELECT subject FROM `student_subject_enrol` where `sccode` = '$stdClassEnrollment'";
+        $getSubjectCode_run = $this->connectdb->query($getSubjectCode);
+        return $getSubjectCode_run;
+    }
+    public function get_subject_description ($subjectCode){
+                $getSubjectDescript = "SELECT `subject_name` FROM `subjects_info` WHERE `id` = '$subjectCode'";
+                $getSubjectDescript_run = $this->connectdb->query($getSubjectDescript);
+            
+            return $getSubjectDescript_run;
+        }        
+    public function student_term_marks($studentClassEnrollment, $subjectCode ,$term)
+	{      try
+            { 
+                $student_term_report = "select `mark` from marks where ssecode='$studentClassEnrollment' and subject_code ='$subjectCode' and term = '$term'";
+                $student_term_report_run = $this->connectdb->query($student_term_report);
+                return $student_term_report_run;
+            }
+            catch (SomeException $e){
+                //ignore errors             
+            }
+	      
+    }
+    function array_implode(array $a)
+    {//type hinting: this function will only work if $a is an array
+        return implode(',',$a);
+    }
+    function phpAlert($msg) {
+        echo '<script type="text/javascript">alert("' . $msg . '")</script>';
+    }
+    
+    ///////////////////////////////////////End of prototype/////////////////////////////////////////////////////////////
+
+
+/////////////////////////End of Student Reports////////////////////////////////////////////////////////////////////////////////////////////////
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 	}
 $ravi = new project2;

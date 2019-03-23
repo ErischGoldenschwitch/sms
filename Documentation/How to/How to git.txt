@@ -1,0 +1,6 @@
+How to git:
+	1. git status #check if you have changes in red, meaning they are still in working tree
+	2. git add . #add all changes in working tree to staging area to prepare for git
+	3. git commit -m "message about commit" #commit changes and give brief description in present tense
+	4. git pull origin master #get all changes from github repo 
+	5. git push origin master #push your changes to github repo
