@@ -250,7 +250,7 @@ class project2
     }
     
     public function get_subject_code($stdClassEnrollment){      
-        $getSubjectCode = "SELECT subject FROM `student_subject_enrol` where `sccode` = '$stdClassEnrollment'";
+        $getSubjectCode = "SELECT `sccode`,`subject` FROM `student_subject_enrol` WHERE `sccode` ='$stdClassEnrollment'";
         $getSubjectCode_run = $this->connectdb->query($getSubjectCode);
         return $getSubjectCode_run;
     }
@@ -260,7 +260,7 @@ class project2
             
             return $getSubjectDescript_run;
         }        
-    public function student_term_marks($studentClassEnrollment, $subjectCode ,$term)
+    /*public function student_term_marks($studentClassEnrollment, $subjectCode ,$term)
 	{      try
             { 
                 $student_term_report = "select `mark` from marks where ssecode='$studentClassEnrollment' and subject_code ='$subjectCode' and term = '$term'";
@@ -271,10 +271,22 @@ class project2
                 //ignore errors             
             }
 	      
+    }*/
+    public function student_marks_term( $st_id){
+        $student_term_report = "SELECT mark as mark, C.subject_name,E.st_fullname, term FROM mark as A inner join student_subject_enrol B on A.ssecode=B.scecode inner join subjects_info C on B.subject=C.id inner join student_class_enrol D on D.sccode=B.sccode inner join st_info E on D.scode=E.st_id WHERE E.st_id ='$st_id'";
+                $student_term_report_run = $this->connectdb->query($student_term_report);
+                return $student_term_report_run;
+        
+    }
+    public function count_student_marks($st_id){
+      $student_term_report_count ="  SELECT COUNT(*) FROM mark as A inner join student_subject_enrol B on A.ssecode=B.scecode inner join subjects_info C on B.subject=C.id inner join student_class_enrol D on D.sccode=B.sccode inner join st_info E on D.scode=E.st_id WHERE E.st_id ='$st_id'";
+        $student_term_report_count_run = $this->connectdb->query($student_term_report_count);
+        return $student_term_report_count_run;
+        
     }
     function array_implode(array $a)
     {//type hinting: this function will only work if $a is an array
-        return implode(',',$a);
+        return implode(',',(array)$a);
     }
     function phpAlert($msg) {
         echo '<script type="text/javascript">alert("' . $msg . '")</script>';
