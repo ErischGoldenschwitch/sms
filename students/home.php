@@ -14,6 +14,27 @@ else
 	$student_name_display = $st_name->fetch_assoc();
 }
 
+ if(isset($_POST['submit'])){
+			
+			if ($_FILES['file']['name'] != null)
+			{
+			//	echo "kjsdfldksjflksdjflkssdkfjhksdjhfkjsd"."Not Empty save to database";
+                move_uploaded_file($_FILES['file']['tmp_name'],"images/pro/".$_FILES['file']['name']);
+				//header("Refresh:0; url=page2.php");
+                $con = mysqli_connect("localhost","root","","march9");
+               $q = mysqli_query($con,"UPDATE st_info SET image = '".$_FILES['file']['name']."'
+			  where st_fullname='".$student_name_display['st_fullname']."' AND st_username='".$st_username."'"); 
+    /// $message = isset($_POST['name']) ? $_POST['name'] : null;
+	echo '<script type="text/javascript">alert("Successfully save");</script>';
+	
+			}
+			
+			else{
+		echo '<script type="text/javascript">alert("No files selected");</script>';
+		}
+		
+	
+		}
 
 ?>
 <!--
@@ -261,7 +282,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 																		<tr>
 																			<th scope="row"><?php echo $sn; ?></th>
 																		
-																			<td><?php echo ucwords($t_info['st_fullname']); ?></td> 
+																			<td><?php echo ucwords($t_info['t_fullname']); ?></td> 
 																			<td><?php echo ucwords($t_info['subject_name']); ?></td> 
 																			
 																		</tr> 
@@ -474,13 +495,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div style="border-top:1px solid rgba(69, 74, 84, 0.7)"></div>
 			<!--/down-->
 			<div class="down">
-				<a href="index.html"><img src="images/admin.jpg"></a>
+			<?php
+                                if($student_name_display['image'] == ""){
+                                        echo "<img width='100' height='100' src='images/pro/nophoto.png' alt='Default Profile Pic'>";
+                                } else {
+                                        echo "<img width='100' height='100' src='images/pro/".$student_name_display['image']."' alt='Profile Pic'>";
+                                }
+                                
+                        
+                ?>
+			<!--	<a href="index.html"><img src="images/admin.jpg"></a>-->
 				<a href="index.html"><span class=" name-caret"><?php echo $student_name_display['st_fullname']; ?></span></a>
 				<p>Student</p>
 				<ul>
-					<li><a class="tooltips" href="index.html"><span>Profile</span><i class="lnr lnr-user"></i></a></li>
+					<li><a class="tooltips" href="#" data-toggle="modal" data-target="#add_data_Modal"><span>Profile</span><i class="lnr lnr-user"></i></a></li>
 					<li><a class="tooltips" href="index.html"><span>Settings</span><i class="lnr lnr-cog"></i></a></li>
 					<li><a class="tooltips" href="logouts.php"><span>Log out</span><i class="lnr lnr-power-switch"></i></a></li>
+					
+				<!-- <button type="button" name="age" id="age" data-toggle="modal" data-target="#add_data_Modal" class="btn btn-success">Edit profile</button>-->
 				</ul>
 			</div>
 			<!--//down-->
@@ -498,6 +530,38 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 		<div class="clearfix"></div>
 	</div>
+	
+	<div id="add_data_Modal" class="modal fade">
+ <div class="modal-dialog">
+  <div class="modal-content">
+   <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h4 class="modal-title">Editing Profile</h4>
+   </div>
+   <div class="modal-body">
+    <form action="" method="POST" enctype="multipart/form-data">
+	<?php
+                                if($student_name_display['image'] == ""){
+                                        echo "<img width='100' height='100' src='images/pro/nophoto.png' alt='Default Profile Pic'>";
+                                } else {
+                                        echo "<img width='100' height='100' src='images/pro/".$student_name_display['image']."' alt='Profile Pic'>";
+                                }
+                                
+                        
+                ?>
+				 <br />
+				 <br />
+				 <input type="file" name="file">
+				 <br />
+                        <input type="submit" name="submit" >
+                </form>
+   </div>
+   <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+   </div>
+  </div>
+ </div>
+</div>
 	<script>
 		var toggle = true;
 
