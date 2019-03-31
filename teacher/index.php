@@ -8,28 +8,29 @@ session_start();
 
 
 
-if(isset($_POST['admin_signin']))
+if(isset($_POST['teacher_signin']))
 {
 	
-	$admin_username = mysqli_real_escape_string($ravi->hackme(),$_POST['admin_username']);
-    $admin_password = mysqli_real_escape_string($ravi->hackme(),$_POST['admin_password']);
-	if($admin_username=="" AND $admin_password=="")
+	$teacher_username = mysqli_real_escape_string($ravi->hackme(),$_POST['teacher_username']);
+    $teacher_password = mysqli_real_escape_string($ravi->hackme(),$_POST['teacher_password']);
+	if($teacher_username=="" AND $teacher_password=="")
 	{
 		echo "<script>alert('Enter Your Username & Password');</script>";
 	}
 	else
 	{
-		$melogin = $ravi->meadmin_check($admin_username,$admin_password);
-			if($melogin==1)
+		$teacherlogin = $ravi->teacher_check($teacher_username,$teacher_password);
+			if($teacherlogin==1)
 	{
-	$_SESSION['meadmin'] = 	$admin_username;
+	$_SESSION['teacher'] = 	$teacher_username;
 		header("location:home.php");
 	}
 		
 		
 	else
 	{
-		echo "<script>alert('Email Or Password does not matched');</script>";
+		echo "<script>alert('Email ".$teacher_password." Or Password does ".$teacher_username."not matched');</script>";
+
 	}
 	
 	}
@@ -84,9 +85,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 																			
 																		</div>
 																<form method="post">
-					<input type="text" class="text" name="admin_username" placeholder="Username" value="<?php if(isset($_POST['admin_signin'])){ echo $_POST['admin_username']; } ?>">
-					<input type="password" placeholder="Password" name="admin_password" value="<?php if(isset($_POST['admin_signin'])){ echo $_POST['admin_password']; } ?>">
-				<div class="submit"><input type="submit" value="Login" name="admin_signin"></div>
+					<input type="text" class="text" name="teacher_username" placeholder="Username" value="<?php if(isset($_POST['teacher_signin'])){ echo $_POST['teacher_username']; } ?>">
+					<input type="password" placeholder="Password" name="teacher_password" value="<?php if(isset($_POST['teacher_signin'])){ echo $_POST['teacher_password']; } ?>">
+				<div class="submit"><input type="submit" value="Login" name="teacher_signin"></div>
 									<div class="clearfix"></div>
 																		
 																

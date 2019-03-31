@@ -61,19 +61,21 @@ class project2
     
     /////////////////////////////// TEACHER LOGIN INFO--------------------------
 	
-	public function teacher_check($admin_username,$admin_password)
+	public function teacher_check($teacher_username,$teacher_password)
 	{
-		$meadin_login_select = "select * from teacher_info where t_username='$t_username' AND admin_password='$t_pass'";
-		$meadmin_login_run = $this->connectdb->query($meadin_login_select);
-		$meadmin_login_num = $meadmin_login_run->num_rows;
-		return $meadmin_login_num;
+		$teacher_login_select = "select * from teacher_info where t_username='$teacher_username' AND t_pass='$teacher_password'";
+		
+		$teacher_login_run = $this->connectdb->query($teacher_login_select);
+		//echo $teacher_login_run."hephas biggy";
+		$teacher_login_num = $teacher_login_run->num_rows;
+		return $teacher_login_num;
 	}
     
-	public function teacher_username($adminname)
+	public function teacher_username($teachername)
 	{
-		$meadmin_username_select = "select * from teacher_info where t_username='$adminname'";
-		$meadmin_username_run = $this->connectdb->query($meadmin_username_select);
-		return $meadmin_username_run;
+		$teacher_username_select = "select * from teacher_info where t_username='$teachername'";
+		$teacher_username_run = $this->connectdb->query($teacher_username_select);
+		return $teacher_username_run;
 	}
 	
 	//////////////////////////////////Teacher Info ////////////////////////////////

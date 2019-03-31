@@ -1,18 +1,18 @@
 <?php 
 include "../setting/config.php";
 session_start();
-if(!$_SESSION['meadmin'])
+if(!$_SESSION['teacher'])
 {
 	header("location:index.php");
 }
 else
 {
-	$adminname = $_SESSION['meadmin'];
-	$meadmin_username = $ravi->meadmin_username($adminname);
-	$meadmin_username_display = $meadmin_username->fetch_assoc();
-	$meadmin_info= $meadmin_username_display['admin_username']; 
-	$t_staff_type = $meadmin_username_display['t_staff_type'];
-	$info = $ravi->teacher_info($adminname,$t_staff_type);
+	$teachername = $_SESSION['teacher'];
+	$teacher_username = $ravi->teacher_username($teachername);
+	$teacher_username_display = $teacher_username->fetch_assoc();
+	$teacher_info= $teacher_username_display['t_username']; 
+	$t_staff_type = $teacher_username_display['t_staff_type'];
+	$info = $ravi->teacher_info($teachername,$t_staff_type);
 	$info_display = $info->fetch_assoc();
 	
 }
