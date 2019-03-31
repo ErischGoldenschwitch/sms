@@ -18,6 +18,39 @@ else
 }
 
 
+        if(isset($_POST['submit'])){
+			
+			if ($_FILES['file']['name'] != null)
+			{
+			//	echo "kjsdfldksjflksdjflkssdkfjhksdjhfkjsd"."Not Empty save to database";
+                move_uploaded_file($_FILES['file']['tmp_name'],"images/pro/".$_FILES['file']['name']);
+				//header("Refresh:0; url=page2.php");
+                $con = mysqli_connect("localhost","root","","march9");
+               $q = mysqli_query($con,"UPDATE teacher_info SET image = '".$_FILES['file']['name']."',
+			  t_fullname='".$_POST['name']."',t_address='".$_POST['address']."',t_email='".$_POST['email']."',
+			  t_dob='".$_POST['datetimepicker4']."',t_qualification='".$_POST['qualification']."',t_contact='".$_POST['contact']."',
+			  t_gender='".$_POST['gender']."'
+			  where t_staff_type='".$t_staff_type."' AND t_username='".$teachername."'"); 
+    /// $message = isset($_POST['name']) ? $_POST['name'] : null;
+	echo '<script type="text/javascript">alert("Successfully save");</script>';
+	
+			}
+			
+			else{
+				$con = mysqli_connect("localhost","root","","march9");
+               $q = mysqli_query($con,"UPDATE teacher_info SET t_fullname='".$_POST['name']."',
+			   t_address='".$_POST['address']."',t_email='".$_POST['email']."',
+			  t_dob='".$_POST['datetimepicker4']."',t_qualification='".$_POST['qualification']."',t_contact='".$_POST['contact']."',
+			  t_gender='".$_POST['gender']."'
+			  where t_staff_type='".$t_staff_type."' AND t_username='".$teachername."'"); 
+			  //echo '<script type="text/javascript">window.location.reload();</script>';
+		//echo "kjsdfldksjflksdjflkssdkfjhksdjhfkjsd"." Empty Do not save to database";
+		echo '<script type="text/javascript">alert("Successfully save");</script>';
+		}
+		
+	
+		}
+
 
 ?>
 <!--
@@ -123,11 +156,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div style="border-top:1px solid rgba(69, 74, 84, 0.7)"></div>
 			<!--/down-->
 			<div class="down">
-				<a href="index.html"><img src="images/admin.jpg"></a>
+				 <?php
+                                if($info_display['image'] == ""){
+                                        echo "<img width='100' height='100' src='images/pro/nophoto.png' alt='Default Profile Pic'>";
+                                } else {
+                                        echo "<img width='100' height='100' src='images/pro/".$info_display['image']."' alt='Profile Pic'>";
+                                }
+                                
+                        
+                ?>
 				<a href="index.php"><span class=" name-caret"><?php echo $info_display['t_fullname']; ?></span></a>
 				<p>Teacher</p>
 				<ul>
-					<li><a class="tooltips" href="index.html"><span>Profile</span><i class="lnr lnr-user"></i></a></li>
+					<li><a class="tooltips" href="#" data-toggle="modal" data-target="#add_data_Modal"><span>Profile</span><i class="lnr lnr-user"></i></a></li>
 					<li><a class="tooltips" href="index.html"><span>Settings</span><i class="lnr lnr-cog"></i></a></li>
 					<li><a class="tooltips" href="logouts.php"><span>Log out</span><i class="lnr lnr-power-switch"></i></a></li>
 				</ul>
@@ -190,6 +231,61 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 		<div class="clearfix"></div>
 	</div>
+	<div id="add_data_Modal" class="modal fade">
+ <div class="modal-dialog">
+  <div class="modal-content">
+   <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h4 class="modal-title">Editing Profile</h4>
+   </div>
+   <div class="modal-body">
+    <form action="" method="POST" enctype="multipart/form-data">
+	<?php
+                                if($info_display['image'] == ""){
+                                        echo "<img width='100' height='100' src='images/pro/nophoto.png' alt='Default Profile Pic'>";
+                                } else {
+                                        echo "<img width='100' height='100' src='images/pro/".$info_display['image']."' alt='Profile Pic'>";
+                                }
+                                
+                        
+                ?>
+				 <br />
+				 <br />
+				 <input type="file" name="file">
+				 <br />
+				 <label>Fullname</label>
+     <input type="name" name="name"  class="form-control" required value="<?php echo $info_display['t_fullname']; ?>" />
+     <br />
+	 	 <label>Address</label>
+     <input type="text" name="address" id="address" required class="form-control" value="<?php echo $info_display['t_address']; ?>"/>
+
+	  <br />
+	 	 <label>Email</label>
+     <input type="text" name="email" id="email" required class="form-control" value="<?php echo $info_display['t_email']; ?>"/>
+     <br />
+	 <label>Date of Birth</label>
+      <input type='text' class="form-control" id='datetimepicker4' required name="datetimepicker4" value="<?php echo $info_display['t_dob']; ?>"/>
+    <br />
+	 	 <label>Qualification</label>
+     <input type="text" name="qualification" required id="qualification" class="form-control" value="<?php echo $info_display['t_qualification']; ?>"/>
+     <br />
+	  <label>Contact</label>
+     <input type="text" name="contact" id="contact" required class="form-control" value="<?php echo $info_display['t_contact']; ?>"/>
+     <br />
+	  <label>Gender</label>
+     <input type="text" name="gender" id="gender" required class="form-control" value="<?php echo $info_display['t_gender']; ?>"/>
+     <br />
+                   
+                        <input type="submit" name="submit" >
+                </form>
+   </div>
+   <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+   </div>
+  </div>
+ </div>
+</div>
+
 	<script>
 		var toggle = true;
 

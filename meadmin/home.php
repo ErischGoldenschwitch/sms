@@ -161,7 +161,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="down">
 				<a href="index.html">   <?php
                                 if($info_display['image'] == ""){
-                                        echo "<img width='100' height='100' src='images/pro/pro/nophoto.png' alt='Default Profile Pic'>";
+                                        echo "<img width='100' height='100' src='images/pro/nophoto.png' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100' src='images/pro/".$info_display['image']."' alt='Profile Pic'>";
                                 }
