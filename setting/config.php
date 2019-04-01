@@ -142,6 +142,23 @@ class project2
 		$edit_teacherid_run = $this->connectdb->query($edit_teacherid);
 		return $edit_teacherid_run;
 	}
+
+	////////////  edit student information ////////////////////
+
+	public function edit_studentid($st_id)
+	{
+		$edit_studentid = "select * from st_info where st_id='$st_id'";
+		$edit_studentid_run = $this->connectdb->query($edit_studentid);
+		return $edit_studentid_run;
+	}
+
+	public function update_student_info($up_st_fullname,$up_st_username,$up_st_password,$up_st_grade,$up_st_rollno,$up_st_dob,$up_st_address,$up_st_distcrict,$up_st_gender,$up_st_father,$up_st_mother,$up_st_parent_contact,$studentid)
+	{
+		$update_student_info_select = "update st_info set st_fullname='$up_st_fullname',st_username='$up_st_username',st_password='$up_st_password',st_grade='$up_st_grade',roll_no='$up_st_rollno',st_dob='$up_st_dob',st_address='$up_st_address',st_district='$up_st_distcrict',st_gender='$up_st_gender',st_father='$up_st_father',st_mother='$up_st_mother',st_parents_contact='$up_st_parent_contact' where st_id='$studentid'";
+		$update_student_info_run = $this->connectdb->query($update_student_info_select);
+		return $update_student_info_run;
+	}
+
 	///////////////// update teacher info from admin/////////////
 	public function update_teacher_info($up_fullname,$up_address,$up_email,$up_father,$up_mother,$up_dob,$up_qualification,$up_contact,$up_staff,$up_gender,$teacher_id)
 	{
