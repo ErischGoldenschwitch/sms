@@ -171,22 +171,34 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											
 											<div class="col-md-12">
 												<?php 
+                                                
 												if(isset($_POST['change_password']))
 												{
+                                                    $current_user_password = $student_name_display['st_password'];
+                                                    
 													
-													$prev_password = $student_name_display['st_password'];
-													$old_password = $_POST['old_password'];
+													echo "<script>alert('Current password is: $current_user_password');</script>";
+                                                    $enterd_user_password = $_POST['provided_password'];
+													echo "<script>alert('Provided password is: $enterd_user_password');</script>";
 													
-													if($prev_password!=$old_password)
+                                                    if($current_user_password != $enterd_user_password)
 													{ 
-														echo "<script>alert('Old Password Does not Matched');</script>";	
+														echo "<script>alert('Saved Password Does Not Match Password Provided in Old Password Field');</script>";	
+                                                        
 													}
 													else
 													{
-														$st_username = $student_name_display['st_username'];
-													$st_password_update = $_POST['new_password'];
-														$update_success = $ravi->student_password_change($st_password_update,$st_username);
-														print_r($update_success);
+                                                        $length = strlen($_POST['new_password']);
+                                                        if($length<4){
+                                                            echo "<script>alert('Length: $length');</script>";    
+                                                            $st_username = $student_name_display['st_username'];
+                                                            $st_password_update = $_POST['new_password'];
+                                                            $update_success = $ravi->student_password_change($st_password_update,$st_username);
+                                                            print_r($update_success);
+                                                            
+                                                        }else{
+                                                            echo "<script>alert('Password must be longer than 8 Characters. Provided passsword is only $length characters long.');</script>";
+                                                        }
 													
 													if($update_success==true)
 													{
@@ -205,7 +217,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 												<div class="input-group input-icon">
 													<span class="input-group-addon">
 												<i class="fa fa-key"></i>	</span>
-													<input type="password" class="form-control1 icon" name="old_password" placeholder="Old Password">
+													<input type="password" class="form-control1 icon" name="provided_password" placeholder="Old Password">
 													
 												</div>
 												<div class="input-group input-icon">
