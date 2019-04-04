@@ -24,7 +24,7 @@
 			<div class="tables">
 
 
-				<table class="table table-bordered ">
+			<table id="dataTableID" class="table table-striped" cellspacing="0" width="100%">
 
 					<thead>
 						<tr>
