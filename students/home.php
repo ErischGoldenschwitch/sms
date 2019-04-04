@@ -171,31 +171,39 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											
 											<div class="col-md-12">
 												<?php 
+                                                
 												if(isset($_POST['change_password']))
 												{
-													
-													$prev_password = $student_name_display['st_password'];
-													$old_password = $_POST['old_password'];
-													
-													if($prev_password!=$old_password)
+                                                    //Current Password and Old Password Variables
+                                                    $current_user_password = $student_name_display['st_password'];
+                                                    $enterd_user_password = $_POST['provided_password'];
+                                                    //Check if entered password is NOT really the old password
+                                                    if($current_user_password != $enterd_user_password)
 													{ 
-														echo "<script>alert('Old Password Does not Matched');</script>";	
+														echo "<script>alert('Saved Password Does Not Match Password Provided in Old Password Field');</script>";	
+                                                        
 													}
 													else
 													{
-														$st_username = $student_name_display['st_username'];
-													$st_password_update = $_POST['new_password'];
-														$update_success = $ravi->student_password_change($st_password_update,$st_username);
-														print_r($update_success);
-													
-													if($update_success==true)
-													{
-													echo "<script>window.location = 'home.php?success';</script>";
-													}
-														else
-														{
-															echo "<script>alert('cant update password');</script>";
-														}
+                                                        //Check length of the new password, must be longer than 8 characters.
+                                                        $length = strlen($_POST['new_password']);
+                                                        if($length <= 8){  
+                                                            $st_username = $student_name_display['st_username'];
+                                                            $st_password_update = $_POST['new_password'];
+                                                            $update_success = $ravi->student_password_change($st_password_update,$st_username);
+                                                            print_r($update_success);
+                                                            
+                                                            if($update_success==true){//Cover Up post method
+													           echo "<script>window.location = 'home.php?success';</script>";
+													           }
+                                                            else{//Provide Negative User Feedback When Errors Occur 
+															   echo "<script>alert('cant update password');</script>";
+                                                            }
+                                                            
+                                                        }
+                                                        else{
+                                                            echo "<script>alert('Password must be longer than 8 Characters. Provided passsword is only $length characters long.');</script>";
+                                                        }
 													}
 													
 												}
@@ -205,7 +213,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 												<div class="input-group input-icon">
 													<span class="input-group-addon">
 												<i class="fa fa-key"></i>	</span>
-													<input type="password" class="form-control1 icon" name="old_password" placeholder="Old Password">
+													<input type="password" class="form-control1 icon" name="provided_password" placeholder="Old Password">
 													
 												</div>
 												<div class="input-group input-icon">
