@@ -1,91 +1,134 @@
-<?php 
- 
- if(isset($_POST['std_add_now']))
- {
-	 // $std_fullname,$std_username,$std_password,$std_grade,$std_roll,$std_dob,$std_address,$std_district,$std_gender,$std_father,$std_mother,$std_parent_contact
-	 $std_fullname = $_POST['std_fullname'];
-	 $std_username = $_POST['std_username'];
-	 $std_password = $_POST['std_password'];
-	 $std_grade = $_POST['std_grade'];
-	 $std_roll = $_POST['std_roll'];
-	 $std_dob = $_POST['std_dob'];
-	 $std_address = $_POST['std_address'];
-	 $std_district = $_POST['std_district'];
-	 $std_gender = $_POST['std_gender'];
-	 $std_father = $_POST['std_father'];
-	 $std_mother= $_POST['std_mother'];
-	 $std_parent_contact = $_POST['std_parent_contact'];
-	 
-	 if($std_fullname=="" or $std_username=="" or $std_password=="" or $std_grade=="" or $std_gender=="" or $std_roll=="" or $std_dob=="" or $std_address=="" or $std_district=="" or $std_father=="" or $std_mother=="" or $std_parent_contact=="")
-	 {
-		 echo "<script>alert('please fill form and Add Student');</script>";
-	 }
-	 else
-	 {
-		 
-		 $add_student_done = $ravi->add_student($std_fullname,$std_username,$std_password,$std_grade,$std_roll,$std_dob,$std_address,$std_district,$std_gender,$std_father,$std_mother,$std_parent_contact);
-		 if($add_student_done==true)
-		 {
-			 echo "<script>window.location = 'home.php?ravi=student-information';</script>";
-		 }
-		 else
-		 {
-			 echo "<script>alert('contact with developer');</script>";
-		 }
-		 
-	 }
-	 
- }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
 
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
 
-?>
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
-<div class="forms-main">
-	
-	<div class="graph-form">
-		<div class="validation-form">
-			<!---->
-			<h2 align="center"><?php echo strtoupper($_GET['ravi']); ?></h2>
-			<form method="post">
-                
-                <select name="std_grade">
-						<option>Select Class</option>
-						<?php 
-						$st_add_class = $ravi->grade($grade);
-						while($st_add_class_fetch = $st_add_class->fetch_assoc())
-						{
-						?>
-								<option value="<?php echo $st_add_class_fetch['class']; ?>"><?php echo $st_add_class_fetch['class']; ?></option>
-								
-						<?php } ?>
-					</select>
-             
-					<div class="clearfix"> </div>
-					<label class="control-label">FullName</label>
-					<input type="text" required="" name="std_fullname">
-				    
+input[type=submit]:hover {
+  background-color: #45a049;
+}
 
-				    <div class="clearfix"> </div>
-				    <label class="control-label">Subject</label>
-				    <input type="text"required=""name="std_username">
-					
-						
-					<div class="clearfix"> </div>
-					<label class="control-label">Mark</label>
-                    <input type="text"required="" name="std_username">
-						
-					
-					<div class="clearfix"> </div>
-				<div class="col-md-12 form-group button-2">
-					<input type="submit" class="btn btn-primary" value="Submit" name="std_add_now">
-					<button type="reset" class="btn btn-default">Reset</button>
-				</div>
-				<div class="clearfix"> </div>
-			</form>
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+</style>
+<title>Add Student Marks</title>
+</head>
+<body>
+    
+    <h3>Add Student Marks</h3>
+    
+    <div class="container">
+<form action="insertMarks.php" method="post">
+    <p>
+        <label for="StudentName">Student Name</label>
+        <input type="text" name="student_name" id="student_name">
+    </p>
+    
+    <p>
+      <label for="StudentGrade">Student Grade</label>
+      <select id="student_grade" name="student_grade">
+      <option value="1">Grade 1</option>
+      <option value="2">Grade 2</option>
+      <option value="3">Grade 3</option>
+      <option value="4">Grade 4</option>
+      <option value="5">Grade 5</option>
+      <option value="6">Grade 6</option>
+      <option value="7">Grade 7</option>
+      <option value="8">Grade 8</option>
+      <option value="9">Grade 9</option>
+      <option value="10">Grade 10</option>
+      <option value="11">Grade 11</option>
+      <option value="12">Grade 12</option>
+    </select>
+        
+    </p>
+    
+    <p>
+        <label for="english">English</label>
+        <input type="text" name="english" id="english">
+    </p>
+    <p>
+        <label for="english2">English2</label>
+        <input type="text" name="english2" id="english2">
+    </p>
+    <p>
+        <label for="math">Math</label>
+        <input type="text" name="math" id="math">        
+    </p>
+    
+    <p>
+        <label for="math">Math2</label>
+        <input type="text" name="math2" id="math2">        
+    </p>
+    
+    <p>
+        <label for="Social">Social</label>
+        <input type="text" name="Social" id="Social">        
+    </p>
+    
+    <p>
+        <label for="Health">Health</label>
+        <input type="text" name="Health" id="Health">        
+    </p>
+    
+    <p>
+        <label for="GK">GK</label>
+        <input type="text" name="GK" id="GK">        
+    </p>
+    
+    <p>
+        <label for="Computer">Computer</label>
+        <input type="text" name="Computer" id="Computer">        
+    </p>
+    
+    <p>
+        <label for="Science">Science</label>
+        <input type="text" name="Science" id="Science">        
+    </p>
+    
+    <p>
+        <label for="Nepali">Nepali</label>
+        <input type="text" name="Nepali" id="Nepali">        
+    </p>
+    
+    <p>
+        <label for="term">term</label> 
+        <select id="term" name="term">
+        <option value="1">Term 1</option>
+        <option value="2">Term 2</option>
+        <option value="3">Term 3</option>
+    </select>
+    </p>
+    
+    <input type="submit" value="Submit">
+</form>
+    </div>
+</body>
+</html>
 
-			<!---->
-		</div>
-
-	</div>
-</div>
-<!--//forms-->
