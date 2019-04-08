@@ -60,6 +60,7 @@
 																			<th>Grade</th>
 																			<th>Contact</th>
 																			<th>Gender</th>
+																			<th>Action</th>
 																		</tr>
 																	</thead>
 																	<tbody> 
@@ -87,7 +88,12 @@
 															<td><?php echo $student_info_admin['st_grade'] ?></td>
 															<td><?php echo $student_info_admin['st_parents_contact']; ?></td>
 															<td><?php echo $student_info_admin['st_gender']; ?></td>
-																		</tr>
+															<td>
+
+															<a href="home.php?ravi=student-editnow&studentid=<?php echo $student_info_admin['st_id']; ?>" class="btn red">Edit</a>
+															
+															</td>
+														</tr>
 																<?php $s_sn++; }} else {
 										 ?>
 																		<td colspan="12">No any Students information found
