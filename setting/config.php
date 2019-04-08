@@ -118,7 +118,8 @@ class project2
 	
 	public function student_password_change($st_password_update,$st_username)
 	{
-		$student_password_update = "update st_info set st_password='$st_password_update' where st_username='$st_username'";
+        $st_password_hashed = $this->password_hashing($st_password_update);
+		$student_password_update = "update st_info set st_password='$st_password_hashed' where st_username='$st_username'";
 		$student_password_update_run = $this->connectdb->query($student_password_update);
 		return $student_password_update_run;
 	}
@@ -303,12 +304,50 @@ class project2
         return $student_term_report_count_run;
         
     }
-    function array_implode(array $a)
-    {//type hinting: this function will only work if $a is an array
+    
+    ///////////////////////////////////////Utilities////////////////////////////////////////////////////////////////////
+       function array_implode(array $a)
+    {//type hint: this function will only work if $a is an array
         return implode(',',(array)$a);
     }
     function phpAlert($msg) {
-        echo '<script type="text/javascript">alert("' . $msg . '")</script>';
+        echo "<script>alert('Alert is: $msg.');</script>";
+    }
+    //Hash Passwords
+    function password_hashing($st_password){
+        $options = ['cost' => 12,];
+        $hashed_password = password_hash($st_password, PASSWORD_BCRYPT, $options);
+        return $hashed_password;
+        
+    }
+    //Salt function for future improvements on the storage of other data and additional passwords security
+    function salt_password(){
+        $salt = md5('quick salt');
+        return $salt;
+    }
+    //Encrypt any sensitive data
+    function ssl_encrypt_password($plaintext){
+        //Encryption relies on AES 256.
+        $method = 'aes-256-cbc';
+        $key = openssl_random_pseudo_bytes(16);
+        $iv = openssl_random_pseudo_bytes(16);
+        //Open SSL Encrypt the plaintext using aes 256, the random keys and the internilization vector
+        $cipherText = openssl_encrypt($plaintext, $method, $key, 0, $iv);
+        $cipherText = $key.$iv.$cipherText;//Adds key and iv to the cipher.
+        $cipherText = base64_encode($cipherText);
+        return $cipherText;
+        
+    }
+    //Decrypt data
+    function ssl_decrypt_password($cipherText){
+        //Decryption
+        $cipher = base64_decode($cipherText);
+        $method = 'aes-256-cbc';
+        $key = substr($cipher, 0, 16);//Gets key from cipher substring
+        $iv = substr($cipher, 16, 16);//Gets IV from cipher substring
+        $cipher = substr($cipher, 32);
+        $readableText = openssl_decrypt($cipher, $method, $key, 0, $iv);
+        return $readableText;
     }
     
     ///////////////////////////////////////End of prototype/////////////////////////////////////////////////////////////
