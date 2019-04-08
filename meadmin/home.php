@@ -19,8 +19,20 @@ else
 
 
         if(isset($_POST['submit'])){
-			
-			if ($_FILES['file']['name'] != null)
+			$size= $_FILES['file']['size'];
+			 $acceptable = array(
+        'image/jpeg',
+        'image/jpg',
+        'image/gif',
+        'image/png'
+             );
+			  if((!in_array($_FILES['file']['type'], $acceptable)) ) {
+       echo '<script type="text/javascript">alert("Invalid file type. Only, JPG, GIF and PNG types are accepted");</script>';
+    }
+		else{
+			if ($size<2097152)
+			{
+					if ($_FILES['file']['name'] != null)
 			{
 			//	echo "kjsdfldksjflksdjflkssdkfjhksdjhfkjsd"."Not Empty save to database";
                 move_uploaded_file($_FILES['file']['tmp_name'],"images/pro/".$_FILES['file']['name']);
@@ -48,7 +60,12 @@ else
 		echo '<script type="text/javascript">alert("Successfully save");</script>';
 		}
 		
-	
+			}
+			else {
+			echo '<script type="text/javascript">alert("The size of the file must be less than 20MB in order to be uploaded");</script>';
+			}
+		
+		}
 		}
 
 
