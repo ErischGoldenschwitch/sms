@@ -186,32 +186,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											</div>
 										</section>
 										<section id="section-2">
-										
-											
+										   											
 											<div class="col-md-12">
 												<?php 
+                                                $ravi->update_to_encrypted('id','admin_password','meadmin');
                                                 
 												if(isset($_POST['change_password']))
 												{
                                                     //Current Password and Old Password Variables
-                                                    $current_user_password = $student_name_display['st_password'];
+                                                    $current_db_user_password = $student_name_display['st_password'];
                                                     $entered_user_password = $_POST['provided_password'];
                                                     //Check if entered password is NOT really the old password
-                                                                                                
-
-                                                    /*if (password_verify($entered_user_password, $current_user_password)) {
-                                                        echo 'Password is valid!';
-                                                    } else {
-                                                        echo 'Invalid password.';
-                                                    }*/
-
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    if($current_user_password != $entered_user_password)
+                                                                                                                                                    
+                                                    if(! $ravi->password_verification($entered_user_password, $current_db_user_password))
 													{ 
-														echo "<script>alert('Saved Password Does Not Match Password Provided in Old Password Field');</script>";	
+														echo "<script>alert('Saved Password Does Not Match $entered_user_password Provided in Old Password Field');</script>";	
                                                         
 													}
 													else

@@ -26,7 +26,8 @@ class project2
     }
 	public function student_login_check($st_username,$st_password)
 	{ 
-		$st_login_check = "select  * from st_info where st_username = '$st_username' and st_password='$st_password'";
+        $st_hashed_password = $st_password;//$this->password_hashing($st_password);//Hash given password and search where it is the same
+		$st_login_check = "select  * from st_info where st_username = '$st_username' and st_password='$st_hashed_password'";
 		$st_login_run = $this->connectdb->query($st_login_check);
 		$st_login_num = $st_login_run->num_rows;
 		return $st_login_num;
@@ -45,7 +46,8 @@ class project2
 	
 	public function meadmin_check($admin_username,$admin_password)
 	{
-		$meadin_login_select = "select * from meadmin where admin_username='$admin_username' AND admin_password='$admin_password'";
+		$hashed_admin_password = $this->password_hashing($admin_password);
+        $meadin_login_select = "select * from meadmin where admin_username='$admin_username' AND admin_password='$hashed_admin_password'";
 		$meadmin_login_run = $this->connectdb->query($meadin_login_select);
 		$meadmin_login_num = $meadmin_login_run->num_rows;
 		return $meadmin_login_num;
@@ -310,15 +312,22 @@ class project2
     {//type hint: this function will only work if $a is an array
         return implode(',',(array)$a);
     }
+    //Alert function for debugging and activity tracing
     function phpAlert($msg) {
-        echo "<script>alert('Alert is: $msg.');</script>";
+        echo "<script>alert('PHP Alert: $msg');</script>";
+        //return $msg;
     }
     //Hash Passwords
-    function password_hashing($st_password){
+    function password_hashing($password){
         $options = ['cost' => 12,];
-        $hashed_password = password_hash($st_password, PASSWORD_BCRYPT, $options);
+        $hashed_password = password_hash($password, PASSWORD_BCRYPT, $options);
         return $hashed_password;
         
+    }
+    //Verifies passwords, returns 1 if password is found.
+    function password_verification($password, $userinput){
+        $verified = password_verify($password, $userinput);
+        return $verified;
     }
     //Salt function for future improvements on the storage of other data and additional passwords security
     function salt_password(){
@@ -348,6 +357,27 @@ class project2
         $cipher = substr($cipher, 32);
         $readableText = openssl_decrypt($cipher, $method, $key, 0, $iv);
         return $readableText;
+    }
+    //Update all passwords to encrypted passwords
+    function update_to_encrypted($pk ,$column,$table){
+        $table_info_developer = "select * from $table";//Example is: select st_password from st_info
+		$table_info_developer_run = $this->connectdb->query($table_info_developer);
+        if($table_info_developer_run->num_rows>0){
+            while($row=$table_info_developer_run->fetch_assoc()){
+                $counter = 1;
+                $password_to_hash = $row["$column"];
+                //$this->phpAlert("Student Password: ". $password_to_hash);
+                
+                $hashed_update = $this->password_hashing($password_to_hash);
+                //$this->phpAlert("Hashed Student Password: ". $hashed_update);
+                $primary_key = $row["$pk"];
+                $update_sql = "UPDATE $table SET $column='$hashed_update' WHERE $primary_key = $counter";
+                $update_sql_run = $this->connectdb->query($update_sql);
+                $this->phpAlert("$primary_key Update Successful");   
+                $counter++;
+            }
+        }
+        
     }
     
     ///////////////////////////////////////End of prototype/////////////////////////////////////////////////////////////
