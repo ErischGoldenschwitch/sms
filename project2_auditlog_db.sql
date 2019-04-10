@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2019 at 10:52 PM
+-- Generation Time: Apr 10, 2019 at 11:30 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
@@ -101,9 +101,16 @@ CREATE TABLE `mark_log` (
   `term` int(11) DEFAULT NULL,
   `mark` int(11) DEFAULT NULL,
   `year` int(11) DEFAULT NULL,
-  `creatDate` datetime DEFAULT NULL,
+  `createDate` datetime DEFAULT NULL,
   `lastModified` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `mark_log`
+--
+
+INSERT INTO `mark_log` (`id`, `actionTaken`, `actionTime`, `mcode`, `ssecode`, `tecode`, `term`, `mark`, `year`, `createDate`, `lastModified`) VALUES
+(1, 'DELETE', '2019-04-10 21:11:55', 16, 12, 4, 5, 99, 2019, '2019-03-18 00:00:00', '2019-03-18 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -183,6 +190,15 @@ CREATE TABLE `st_info_log` (
   `st_parents_contact` varchar(15) DEFAULT NULL,
   `image` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `st_info_log`
+--
+
+INSERT INTO `st_info_log` (`id`, `actionTaken`, `actionTime`, `st_id`, `st_fullname`, `st_username`, `st_password`, `st_grade`, `roll_no`, `st_dob`, `st_address`, `st_district`, `st_gender`, `st_father`, `st_mother`, `st_parents_contact`, `image`) VALUES
+(1, 'Update', '2019-04-10 20:23:52', 3, 'Qwe', 'asdf', '$2y$12$Sc2eGqTMJdSfq8ftLuVS.eYaXqFrXX6NOU0Mes7Dt7CyC3TwmvZWC', 8, 11, '27 Dec 1998', 'Banepa', 'Kavre', 'Male', 'aasd', 'aasdf', '9812222', ''),
+(2, 'Update', '2019-04-10 20:40:23', 27, 'vilo qas', 'qas', '$2y$12$Sc2eGqTMJdSfq8ftLuVS.eYaXqFrXX6NOU0Mes7Dt7CyC3TwmvZWC', 1, 1, '12/12/12', 'skdjlsk north', 'Otavi', 'Male', 'hjashj', 'hjjsdh', '45564', ''),
+(3, 'DELETE', '2019-04-10 20:45:02', 51, 'basi rta', 'rota', '$2y$12$Sc2eGqTMJdSfq8ftLuVS.eYaXqFrXX6NOU0Mes7Dt7CyC3TwmvZWC', 1, 1, '12/15/20', 'kjhaksj ', 'hj', 'Male', 'jhjhsdj', 'kjshdkj', '8755455', '');
 
 -- --------------------------------------------------------
 
@@ -374,7 +390,7 @@ ALTER TABLE `grade_log`
 -- AUTO_INCREMENT for table `mark_log`
 --
 ALTER TABLE `mark_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `meadmin_log`
@@ -398,7 +414,7 @@ ALTER TABLE `student_subject_enrol_log`
 -- AUTO_INCREMENT for table `st_info_log`
 --
 ALTER TABLE `st_info_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `subjects_info_log`
