@@ -26,11 +26,13 @@ class project2
     }
 	public function student_login_check($st_username,$st_password)
 	{ 
-        $st_hashed_password = $st_password;//$this->password_hashing($st_password);//Hash given password and search where it is the same
-		$st_login_check = "select  * from st_info where st_username = '$st_username' and st_password='$st_hashed_password'";
-		$st_login_run = $this->connectdb->query($st_login_check);
-		$st_login_num = $st_login_run->num_rows;
-		return $st_login_num;
+        //Get password from db
+        $st_user_check = $this->student_info_select($st_username);
+        $st_user_info = $st_user_check->fetch_assoc();
+        $stored_password = $st_user_info['st_password'];     
+        //Verify Password from DB
+        $verified = $this->password_verification($st_password, $stored_password);
+		return $verified;
 	}
 
 	public function student_info_select($st_username)
@@ -46,11 +48,14 @@ class project2
 	
 	public function meadmin_check($admin_username,$admin_password)
 	{
-		$hashed_admin_password = $this->password_hashing($admin_password);
-        $meadin_login_select = "select * from meadmin where admin_username='$admin_username' AND admin_password='$hashed_admin_password'";
-		$meadmin_login_run = $this->connectdb->query($meadin_login_select);
-		$meadmin_login_num = $meadmin_login_run->num_rows;
-		return $meadmin_login_num;
+        //Get password from DB
+		
+        $meadin_login_select = $this->meadmin_username($admin_username);
+        $meadin_info = $meadin_login_select->fetch_assoc();
+        $stored_password = $meadin_info['admin_password'];  
+        //Verify Password from DB
+        $verified = $this->password_verification($admin_password, $stored_password);
+		return $verified;
 	}
     
 	public function meadmin_username($adminname)
@@ -65,12 +70,15 @@ class project2
 	
 	public function teacher_check($teacher_username,$teacher_password)
 	{
-		$teacher_login_select = "select * from teacher_info where t_username='$teacher_username' AND t_pass='$teacher_password'";
 		
-		$teacher_login_run = $this->connectdb->query($teacher_login_select);
-		//echo $teacher_login_run."hephas biggy";
-		$teacher_login_num = $teacher_login_run->num_rows;
-		return $teacher_login_num;
+        //Get password from db
+        $teacher_login_select = $this->teacher_username($teacher_username);
+		$teacher_info = $teacher_login_select ->fetch_assoc();
+        $stored_password = $st_user_info['t_pass']; 
+            
+        //Verify Password from DB
+        $verified = $this->password_verification($teacher_password, $stored_password);
+		return $verified;
 	}
     
 	public function teacher_username($teachername)
@@ -325,8 +333,8 @@ class project2
         
     }
     //Verifies passwords, returns 1 if password is found.
-    function password_verification($password, $userinput){
-        $verified = password_verify($password, $userinput);
+    function password_verification($userinput,$stored_password){
+        $verified = password_verify($userinput,$stored_password);
         return $verified;
     }
     //Salt function for future improvements on the storage of other data and additional passwords security
@@ -360,26 +368,33 @@ class project2
     }
     //Update all passwords to encrypted passwords
     function update_to_encrypted($pk ,$column,$table){
-        $table_info_developer = "select * from $table";//Example is: select st_password from st_info
+        //Uncomment this when mass update is needed otherwise leave closed as it may cause unnecessary problems
+        /*$counter = 0;
+        
+        $table_info_developer = "select * from $table";//Example is: select * from st_info
 		$table_info_developer_run = $this->connectdb->query($table_info_developer);
         if($table_info_developer_run->num_rows>0){
             while($row=$table_info_developer_run->fetch_assoc()){
-                $counter = 1;
+                
                 $password_to_hash = $row["$column"];
-                //$this->phpAlert("Student Password: ". $password_to_hash);
+                $primary_key = $row["$pk"];
+                $this->phpAlert("Student Password: ". $password_to_hash);
                 
                 $hashed_update = $this->password_hashing($password_to_hash);
                 //$this->phpAlert("Hashed Student Password: ". $hashed_update);
-                $primary_key = $row["$pk"];
-                $update_sql = "UPDATE $table SET $column='$hashed_update' WHERE $primary_key = $counter";
+               
+                $columnVal = 'abc'.$counter;
+                $this->phpAlert("PK: ". $primary_key." and ColVal: ".$hashed_update. " and counter: ".$counter);
+                //$update_sql = "UPDATE $table SET $column = '$hashed_update' WHERE $pk = $counter";
+                //$this->phpAlert("QUERY $update_sql Update Successful");
                 $update_sql_run = $this->connectdb->query($update_sql);
-                $this->phpAlert("$primary_key Update Successful");   
+                //$this->phpAlert("$primary_key Update Successful");   
                 $counter++;
             }
-        }
+        }*/
         
     }
-    
+ 
     ///////////////////////////////////////End of prototype/////////////////////////////////////////////////////////////
 
 

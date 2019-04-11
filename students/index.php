@@ -10,7 +10,7 @@ if(isset($_POST['student_signin']))
 {
  $st_username = $_POST['st_username'];
 	
-	$st_password = $_POST['st_password']; 
+	$st_password = trim($_POST['st_password']); 
 	
 	if($st_username=="" || $st_password=="")
 	{
@@ -26,6 +26,7 @@ if(isset($_POST['student_signin']))
 	}
 	else
 	{
+        
 		echo "<script>alert('login failed');</script>";
 	}
 	 }
