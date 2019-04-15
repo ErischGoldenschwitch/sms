@@ -15,15 +15,18 @@
 	 $std_father = $_POST['std_father'];
 	 $std_mother= $_POST['std_mother'];
 	 $std_parent_contact = $_POST['std_parent_contact'];
+     $std_parent_pass= $_POST['std_parent_pass'];
+     $std_parent_username= $_POST['std_parent_username'];
 	 
 	 if($std_fullname=="" or $std_username=="" or $std_password=="" or $std_grade=="" or $std_gender=="" or $std_roll=="" or $std_dob=="" or $std_address=="" or $std_district=="" or $std_father=="" or $std_mother=="" or $std_parent_contact=="")
+	 if($std_fullname=="" or $std_username=="" or $std_password=="" or $std_grade=="" or $std_gender=="" or $std_roll=="" or $std_dob=="" or $std_address=="" or $std_district=="" or $std_father=="" or $std_mother=="" or $std_parent_contact==""or $std_parent_pass==""or $std_parent_username=="" )
 	 {
 		 echo "<script>alert('please fill form and Add Student');</script>";
 	 }
 	 else
 	 {
 		 
-		 $add_student_done = $ravi->add_student($std_fullname,$std_username,$std_password,$std_grade,$std_roll,$std_dob,$std_address,$std_district,$std_gender,$std_father,$std_mother,$std_parent_contact);
+		 $add_student_done = $ravi->add_student($std_fullname,$std_username,$std_password,$std_grade,$std_roll,$std_dob,$std_address,$std_district,$std_gender,$std_father,$std_mother,$std_parent_contact,$std_parent_pass,$std_parent_username);
 		 if($add_student_done==true)
 		 {
 			 echo "<script>window.location = 'home.php?ravi=student-information';</script>";
@@ -109,11 +112,22 @@
 						<label class="control-label">Mother</label>
 						<input type="text" placeholder="Mother Name" required="" name="std_mother">
 					</div>
+                    
 					<div class="col-md-12 form-group1 form-last">
 						<label class="control-label">Parent Contact</label>
 						<input type="text" placeholder="Contact Number" required="" name="std_parent_contact">
 					</div>
 				</div>
+                
+                <div class="col-md-6 form-group1">
+						<label class="control-label">Parent Password</label>
+						<input type="text" placeholder="Parent Password" required="" name="std_parent_pass">
+					</div>
+                    
+                    <div class="col-md-6 form-group1">
+						<label class="control-label">Parent Username</label>
+						<input type="text" placeholder="Parent username" required="" name="std_parent_username">
+					</div>
 					<div class="clearfix"> </div>
 				<div class="col-md-12 form-group button-2">
 					<input type="submit" class="btn btn-primary" value="Add Student" name="std_add_now">

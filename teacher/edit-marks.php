@@ -14,20 +14,28 @@
 			
  if(isset($_POST['update_general_setting']))
  {
-	 // $web_name,$web_address,$web_phone1,$web_phone2,$web_email1,$web_email2,$web_start,$web_about
-	 $upweb_name = $_POST['upweb_name'];
-	 $upweb_address = $_POST['upweb_address'];
-	 $upweb_phone1 = $_POST['upweb_phone1'];
-	 $upweb_phone2 = $_POST['upweb_phone2'];
-	 $upweb_email1 = $_POST['upweb_email1'];
-	 $upweb_email2 = $_POST['upweb_email2'];
-	 $upweb_start = $_POST['upweb_start'];
-	 $upweb_about = $_POST['upweb_about'];
+
+	 $upweb_student_name = $_POST['upweb_student_name'];
+	 $upweb_student_grade = $_POST['upweb_student_grade'];
+	 $upweb_english = $_POST['upweb_english'];
+	 $upweb_english2 = $_POST['upweb_english2'];
+	 $upweb_math = $_POST['upweb_math'];
+	 $upweb_math2 = $_POST['upweb_math2'];
+	 $upweb_Social = $_POST['upweb_Social'];
+	 $upweb_Health = $_POST['upweb_Health'];
+     $upweb_GK = $_POST['upweb_GK'];
+	 $upweb_Computer = $_POST['upweb_Computer'];
+	 $upweb_Science = $_POST['upweb_Science'];
+	 $upweb_Nepali = $_POST['upweb_Nepali'];
+	 $upweb_term = $_POST['upweb_term'];
+     
+     
+ 
 	 
-	 	$upweb_info_success = $ravi->general_setting_update($upweb_name,$upweb_address,$upweb_phone1,$upweb_phone2,$upweb_email1,$upweb_email2,$upweb_start,$upweb_about);
+	 	$upweb_info_success = $ravi->update_marks($upweb_student_name,$upweb_student_grade,$upweb_english,$upweb_english2,$upweb_math,$upweb_math2,$upweb_Social,$upweb_Health,$upweb_GK,$upweb_Computer,$upweb_Science,$upweb_Nepali,$upweb_term);
 	 if($upweb_info_success==true)
 	 {
-		 echo "<script>alert('Success Update Website Information Thank You.....');</script>";
+		 echo "<script>alert('Success Update marks Thank You.....');</script>";
 		 echo "<script>window.location= 'home.php';</script>";
 	 }
 	 else
@@ -39,50 +47,79 @@
 	 
 	 
  }
-	$dis_general_data = $ravi->general_setting_check();
-			$display_general_setting = $dis_general_data->fetch_assoc();			
+            
+            
+            
+	        $dis_marks_data = $ravi->marks_update_check();
+			$display_marks_update = $dis_marks_data->fetch_assoc();			
 			
 ?>
 			
 			<form method="post">
 					<div class="col-md-12 form-group1 group-mail">
 					<label class="control-label">Student Name</label>
-					<input type="text" value="<?php echo $display_general_setting['website_name']; ?>" name="upweb_name">
+					<input type="text" value="<?php echo $display_marks_data['student_name']; ?>" name="upweb_student">
 				</div>
 				<div class="vali-form">
 				
 					
 					<div class="col-md-6 form-group1 form-last">
-						<label class="control-label">Address</label>
-						<input type="text" value="<?php echo $display_general_setting['website_address']; ?>" name="upweb_address">
+						<label class="control-label">Student Grade</label>
+						<input type="text" value="<?php echo $display_marks_data['student_grade']; ?>" name="upweb_student_grade">
 					</div>
 					
 						<div class="col-md-6 form-group1">
-						<label class="control-label">Primary Phone</label>
-						<input type="text" value="<?php echo $display_general_setting['website_phone1']; ?>" name="upweb_phone1">
+						<label class="control-label">English</label>
+						<input type="text" value="<?php echo $display_marks_data['english']; ?>" name="upweb_enlish">
 					</div>
 			
 					<div class="clearfix"> </div>
 					<div class="col-md-6 form-group1">
-						<label class="control-label">Secondary Phone</label>
-						<input type="text" value="<?php echo $display_general_setting['website_phone2']; ?>" name="upweb_phone2">
+						<label class="control-label">Enlish2</label>
+						<input type="text" value="<?php echo $display_marks_data['english2']; ?>" name="upweb_english2">
 					</div>
 					<div class="col-md-6 form-group1 form-last">
-						<label class="control-label">Primary Email</label>
-						<input type="text" value="<?php echo $display_general_setting['website_email1']; ?>" name="upweb_email1">
+						<label class="control-label">math</label>
+						<input type="text" value="<?php echo $display_marks_data['math']; ?>" name="upweb_math">
 					</div>
 					<div class="col-md-6 form-group1">
-						<label class="control-label">Secondary Email</label>
-						<input type="text" value="<?php echo $display_general_setting['website_email2']; ?>" name="upweb_email2">
+						<label class="control-label">Math2</label>
+						<input type="text" value="<?php echo $display_marks_data['math2']; ?>" name="upweb_math2">
 					</div>
 					<div class="col-md-6 form-group1 form-last">
-						<label class="control-label">Company Start From</label>
-						<input type="text" value="<?php echo $display_general_setting['website_start']; ?>" name="upweb_start">
+						<label class="control-label">Social</label>
+						<input type="text" value="<?php echo $display_marks_data['Social']; ?>" name="upweb_Social">
+					</div>   
+                    <div class="clearfix"> </div>
+					<div class="col-md-6 form-group1">
+						<label class="control-label">Health</label>
+						<input type="text" value="<?php echo $display_marks_data['health']; ?>" name="upweb_Health">
+					</div>
+					<div class="col-md-6 form-group1 form-last">
+						<label class="control-label">GK</label>
+						<input type="text" value="<?php echo $display_marks_data['GK']; ?>" name="upweb_GK">
+					</div>
+					<div class="col-md-6 form-group1">
+						<label class="control-label">Computer</label>
+						<input type="text" value="<?php echo $display_general_setting['Computer']; ?>" name="upweb_Computer">
+					</div>
+					<div class="col-md-6 form-group1 form-last">
+						<label class="control-label">Science</label>
+						<input type="text" value="<?php echo $display_marks_data['Science']; ?>" name="upweb_Science">
+					</div>
+                    
+                    <div class="col-md-6 form-group1">
+						<label class="control-label">Neptali</label>
+						<input type="text" value="<?php echo $display_marks_data['Neptali']; ?>" name="upweb_Neptali">
+					</div>
+					<div class="col-md-6 form-group1 form-last">
+						<label class="control-label">Term</label>
+						<input type="text" value="<?php echo $display_marks_data['term']; ?>" name="upweb_term">
 					</div>
 				
 					<div class="col-md-12 form-group1 form-last">
 						<label class="control-label">About Us</label>
-							<textarea name="upweb_about" id="txtarea1" cols="50" rows="4" class="form-control1" data-gramm="true" data-txt_gramm_id="ca81ed2e-db8f-f21e-8724-3b682fade546" data-gramm_id="ca81ed2e-db8f-f21e-8724-3b682fade546" spellcheck="false" data-gramm_editor="true" style="z-index: auto; position: relative; line-height: 19.4286px; font-size: 13.6px; transition: none; background: transparent !important;"><?php echo $display_general_setting['web_about']; ?></textarea>
+							<textarea name="upweb_about" id="txtarea1" cols="50" rows="4" class="form-control1" data-gramm="true" data-txt_gramm_id="ca81ed2e-db8f-f21e-8724-3b682fade546" data-gramm_id="ca81ed2e-db8f-f21e-8724-3b682fade546" spellcheck="false" data-gramm_editor="true" style="z-index: auto; position: relative; line-height: 19.4286px; font-size: 13.6px; transition: none; background: transparent !important;"><?php echo $$display_marks_data['web_about']; ?></textarea>
 					</div>
 					
 				</div>

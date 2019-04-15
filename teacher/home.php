@@ -207,8 +207,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     
                     <li id="menu-academico"><a href="#"><i class="fa fa-file-text-o"></i> <span>Student Marks</span> <span class="fa fa-angle-right" style="float: right"></span></a>
 					<ul id="menu-academico-sub">
-							<li id="menu-academico-avaliacoes"><a href="home.php?ravi=add-marks">Edit marks</a></li>
+							<li id="menu-academico-avaliacoes"><a href="home.php?ravi=add-marks">Add marks</a></li>
                             <li id="menu-academico-avaliacoes"><a href="home.php?ravi=marks-routine">View Marks</a></li>
+                            <li id="menu-academico-avaliacoes"><a href="home.php?ravi=marks-routine">Edit Marks</a></li>
 						
 						</ul>
 					</li>

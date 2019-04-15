@@ -46,8 +46,8 @@ input[type=submit]:hover {
     <div class="container">
 <form action="insertMarks.php" method="post">
     <p>
-        <label for="StudentName">Student Name</label>
-        <input type="text" name="student_name" id="student_name">
+        <label for="st_fullname">Student Name</label>
+        <input type="text" name="st_fullname" id="st_fullname">
     </p>
     
     <p>

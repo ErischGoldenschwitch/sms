@@ -9,7 +9,7 @@ if($link === false){
 }
  
 // Escape user inputs for security
-$student_name = mysqli_real_escape_string($link, $_REQUEST['student_name']);
+$st_fullname = mysqli_real_escape_string($link, $_REQUEST['st_fullname']);
 $student_grade = mysqli_real_escape_string($link, $_REQUEST['student_grade']);
 $english = mysqli_real_escape_string($link, $_REQUEST['english']);
 $english2 = mysqli_real_escape_string($link, $_REQUEST['english2']);
@@ -24,11 +24,13 @@ $Nepali = mysqli_real_escape_string($link, $_REQUEST['Nepali']);
 $term = mysqli_real_escape_string($link, $_REQUEST['term']);
  
 // Attempt insert query execution
-$sql = "INSERT INTO result (student_name, student_grade, english,english2,math,math2,Social,Health,GK,Computer,Science,Nepali,term) VALUES ('$student_name', '$student_grade', '$english', '$english2', '$math', '$math2', '$Social', '$Health', '$GK', '$Computer', '$Science', '$Nepali', '$term')";
+$sql = "INSERT INTO result (st_fullname, student_grade, english,english2,math,math2,Social,Health,GK,Computer,Science,Nepali,term) VALUES ('$st_fullname', '$student_grade', '$english', '$english2', '$math', '$math2', '$Social', '$Health', '$GK', '$Computer', '$Science', '$Nepali', '$term')";
 if(mysqli_query($link, $sql)){
     echo "Marks added successfully.";
 } else{
     echo "ERROR: Could not execute $sql. " . mysqli_error($link);
+    echo "<script>window.location= 'home.php';</script>";
+    
 }
  
 // Close connection

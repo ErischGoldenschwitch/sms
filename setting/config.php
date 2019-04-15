@@ -31,6 +31,30 @@ class project2
 		$st_login_num = $st_login_run->num_rows;
 		return $st_login_num;
 	}
+    
+    
+    ///////////////////Parent info select ////////////////////////
+    
+     public function parent_info_select($pr_username)
+	{
+		$parent_info_sel = "select * from parent where pr_username='$pr_username'";
+		$parent_info_run = $this->connectdb->query($parent_info_sel);
+		
+		return $parent_info_run;
+	}
+    
+    
+    /////////////////////////////// PARENT LOGIN INFO--------------------------
+	
+	public function parent_login_check($pr_username,$parent_pass)
+	{
+		$parent_login_select = "select * from parent where pr_username='$pr_username' AND pr_password='$parent_pass'";
+		
+		$parent_login_run = $this->connectdb->query($parent_login_select);
+		
+		$parent_login_num = $parent_login_run->num_rows;
+		return $parent_login_num;
+	}
 
 	public function student_info_select($st_username)
 	{
@@ -39,6 +63,9 @@ class project2
 		
 		return $student_info_run;
 	}
+    
+    
+    
 		
 	
 	/////////////////////////////// ADMINNNNNNNNNNNNNNNNN--------------------------
@@ -66,7 +93,6 @@ class project2
 		$teacher_login_select = "select * from teacher_info where t_username='$teacher_username' AND t_pass='$teacher_password'";
 		
 		$teacher_login_run = $this->connectdb->query($teacher_login_select);
-		//echo $teacher_login_run."hephas biggy";
 		$teacher_login_num = $teacher_login_run->num_rows;
 		return $teacher_login_num;
 	}
@@ -121,6 +147,17 @@ class project2
 		$student_password_update = "update st_info set st_password='$st_password_update' where st_username='$st_username'";
 		$student_password_update_run = $this->connectdb->query($student_password_update);
 		return $student_password_update_run;
+	}
+    
+    
+     
+    ///////////////////////// parent password reset //////////
+	
+	public function parent_password_change($pr_password_update,$pr_username)
+	{
+		$parent_password_update = "update st_info set parent_pass='$parent_password_update' where pr_username='$pr_username'";
+		$parent_password_update_run = $this->connectdb->query($parent_password_update);
+		return $parent_password_update_run;
 	}
 	
 	
@@ -191,6 +228,26 @@ class project2
 		$grade_run = $this->connectdb->query($grade_select);
 		return $grade_run;
 	}
+    
+    ///////////////////UPDATE MARKS
+    
+    
+	public function update_marks($upweb_student_name,$upweb_student_grade,$upweb_english,$upweb_english2,$upweb_math,$upweb_math2,$upweb_Social,$upweb_Health,$upweb_GK,$upweb_Compuer,$upweb_Science,$upweb_Nepali,$upweb_term)
+	{
+		$update_marks = "update marks set student_name='$upweb_student_name',student_grade='$upweb_student_grade',english='$upweb_english',english2='$upweb_english2',math='$upweb_math',math2='$upweb_math2',Social='$upweb_Social',Health='$upweb_Health',GK='$upweb_GK',Computer='$upweb_Computer',Sience='$upweb_Science',Nepali='$upweb_Nepali',term='$upweb_term";
+	 $update_general_run = $this->connectdb->query($update_marks);
+		return $update_general_run;
+    }
+
+
+////////////////////////MARKS UPDATE
+
+public function marks_update_check()
+	{
+		$marks_update_check = "select * from marks";
+		$marks_setting_run = $this->connectdb->query($marks_update_check);
+		return $marks_setting_run;
+	}
 	
 	///////////// display data from st_info select st-grade ///////////
 	public function grade_st_info($grade_st_data)
@@ -207,9 +264,9 @@ class project2
 		return $student_info_display_admin_run;
 	}
 	/////////// add student from admin panel /////////////////////
-	public function add_student($std_fullname,$std_username,$std_password,$std_grade,$std_roll,$std_dob,$std_address,$std_district,$std_gender,$std_father,$std_mother,$std_parent_contact)
+	public function add_student($std_fullname,$std_username,$std_password,$std_grade,$std_roll,$std_dob,$std_address,$std_district,$std_gender,$std_father,$std_mother,$std_parent_contact,$std_parent_pass,$std_pr_username)
 	{
-		$add_student_insert = "insert into st_info(st_fullname,st_username,st_password,st_grade,roll_no,st_dob,st_address,st_district,st_gender,st_father,st_mother,st_parents_contact) value('$std_fullname','$std_username','$std_password','$std_grade','$std_roll','$std_dob','$std_address','$std_district','$std_gender','$std_father','$std_mother','$std_parent_contact')";
+		$add_student_insert = "insert into st_info(st_fullname,st_username,st_password,st_grade,roll_no,st_dob,st_address,st_district,st_gender,st_father,st_mother,st_parents_contact,parent_pass,pr_username) value('$std_fullname','$std_username','$std_password','$std_grade','$std_roll','$std_dob','$std_address','$std_district','$std_gender','$std_father','$std_mother','$std_parent_contact','$std_parent_pass','$std_pr_username')";
 		$add_student_run = $this->connectdb->query($add_student_insert);
 		return $add_student_run;
 	}
@@ -279,7 +336,7 @@ class project2
             
             return $getSubjectDescript_run;
         }        
-    /*public function student_term_marks($studentClassEnrollment, $subjectCode ,$term)
+    public function student_term_marks($studentClassEnrollment, $subjectCode ,$term)
 	{      try
             { 
                 $student_term_report = "select `mark` from marks where ssecode='$studentClassEnrollment' and subject_code ='$subjectCode' and term = '$term'";
@@ -290,7 +347,7 @@ class project2
                 //ignore errors             
             }
 	      
-    }*/
+    }
     public function student_marks_term( $st_id){
         $student_term_report = "SELECT mark as mark, C.subject_name,E.st_fullname, term FROM mark as A inner join student_subject_enrol B on A.ssecode=B.scecode inner join subjects_info C on B.subject=C.id inner join student_class_enrol D on D.sccode=B.sccode inner join st_info E on D.scode=E.st_id WHERE E.st_id ='$st_id'";
                 $student_term_report_run = $this->connectdb->query($student_term_report);
