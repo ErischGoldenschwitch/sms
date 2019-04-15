@@ -18,7 +18,6 @@
      $std_parent_pass= $_POST['std_parent_pass'];
      $std_parent_username= $_POST['std_parent_username'];
 	 
-	 if($std_fullname=="" or $std_username=="" or $std_password=="" or $std_grade=="" or $std_gender=="" or $std_roll=="" or $std_dob=="" or $std_address=="" or $std_district=="" or $std_father=="" or $std_mother=="" or $std_parent_contact=="")
 	 if($std_fullname=="" or $std_username=="" or $std_password=="" or $std_grade=="" or $std_gender=="" or $std_roll=="" or $std_dob=="" or $std_address=="" or $std_district=="" or $std_father=="" or $std_mother=="" or $std_parent_contact==""or $std_parent_pass==""or $std_parent_username=="" )
 	 {
 		 echo "<script>alert('please fill form and Add Student');</script>";
