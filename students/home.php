@@ -186,33 +186,34 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											</div>
 										</section>
 										<section id="section-2">
-										
-											
+										   											
 											<div class="col-md-12">
 												<?php 
+                                                $ravi->update_to_encrypted('id','admin_password','meadmin');
                                                 
 												if(isset($_POST['change_password']))
 												{
                                                     //Current Password and Old Password Variables
-                                                    $current_user_password = $student_name_display['st_password'];
-                                                    $enterd_user_password = $_POST['provided_password'];
+                                                    $current_db_user_password = $student_name_display['st_password'];
+                                                    $entered_user_password = $_POST['provided_password'];
                                                     //Check if entered password is NOT really the old password
-                                                    if($current_user_password != $enterd_user_password)
+                                                                                                                                                    
+                                                    if(! $ravi->password_verification($entered_user_password, $current_db_user_password))
 													{ 
-														echo "<script>alert('Saved Password Does Not Match Password Provided in Old Password Field');</script>";	
+														echo "<script>alert('Saved Password Does Not Match $entered_user_password Provided in Old Password Field');</script>";	
                                                         
 													}
 													else
 													{
                                                         //Check length of the new password, must be longer than 8 characters.
                                                         $length = strlen($_POST['new_password']);
-                                                        if($length <= 8){  
+                                                        if($length >= 8){  
                                                             $st_username = $student_name_display['st_username'];
                                                             $st_password_update = $_POST['new_password'];
                                                             $update_success = $ravi->student_password_change($st_password_update,$st_username);
                                                             print_r($update_success);
                                                             
-                                                            if($update_success==true){//Cover Up post method
+                                                            if($update_success==true){
 													           echo "<script>window.location = 'home.php?success';</script>";
 													           }
                                                             else{//Provide Negative User Feedback When Errors Occur 
