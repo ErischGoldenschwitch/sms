@@ -330,12 +330,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                             <?php 
 															
 															$sn = 0;
-															$student_Term_One = $ravi->student_marks_term($st_id);
+															$student_Term_One = $ravi->student_marks_all($st_id);
 																while($st_res = $student_Term_One->fetch_assoc())		{ 
                                                                     //Get all three elements subject mark and term.
+                                                                    $mark[$sn] = ($st_res['mark']);
                                                                     $subjectName[$sn] = ($st_res['subject_name']);
                                                                     //$ravi->phpAlert($subjectName[$sn]);--> Retrieves correct data
-                                                                    $mark[$sn] = ($st_res['mark']);
                                                                     $term[$sn] = ($st_res['term']);
                                                                     $sn++;
                                                                 } 
@@ -369,39 +369,51 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                 if ($rowNumber==0){
                                                     echo "There are no results for this student.";
                                                 }
-                                                    for($i = 0 ; $i <$rowNumber ; $i++){ ?>
-                                                        <?php
-                                                        echo "<tr> \n
-                                                                <th scope=\"row\">";
-                                                        echo $sn+1;
-                                                        echo "</th>
-																    <td>";
-                                                        //echo ("Subjects");
-                                                        echo implode(', ', (array)$subjectName[$sn]); 
-                                                        echo        "</td> 
-																    <td>50%</td>
-                                                                    <td>";
-                                                        //echo ("Term 1");
-                                                        
-                                                        if($term[$sn]==5 ){
-                                                            echo implode(', ', (array)$mark[$sn]); 
-                                                        }
-                                                        echo        "</td>
-                                                                    <td>";
-                                                        //echo ("Term 2");
-                                                        if($term[$sn]==6 ){
-                                                            echo implode(', ', (array)$mark[$sn]); 
-                                                        }
-                                                        echo       "</td>
-                                                                    <td>";
-                                                        //echo ("Term 3");
-                                                        if($term[$sn]==7 ){
-                                                            echo implode(', ', (array)$mark[$sn]); 
-                                                        }
-                                                        echo       "</td>";
-																	$sn++;
-                                                        echo " </tr>";             
-                                                          }
+                                                else{
+                                                        //Get each subject once
+                                                        $subjectArray = array_unique($subjectName);
+                                                        $k=0;
+                                                        for($j = $k ; $j <count($subjectName) ; $j++){
+                                                            
+                                                           if(isset($subjectArray[$j])){
+                                                                $subjectNameArray[$k] = $subjectArray[$j];
+                                                                $k++;
+                                                            }else{
+                                                                //Do nothing*/
+                                                                }   
+                                                         }
+                                                        for($i = 0 ; $i <count($subjectNameArray) ; $i++){ ?>
+                                                            <?php
+                                                            $subjectname = $subjectNameArray[$i];
+                                                            $markTermOne = $ravi->student_marks_selected($st_id, $subjectname, 5);
+                                                            $markTermTwo = $ravi->student_marks_selected($st_id, $subjectname, 6);
+                                                            $markTermThree = $ravi->student_marks_selected($st_id, $subjectname,7);
+                                                            echo "<tr> \n
+                                                                    <th scope=\"row\">";
+                                                            echo $sn+1;
+                                                            echo "</th>
+                                                                        <td>";
+                                                            //echo ("Subjects");
+                                                            echo $subjectname; 
+                                                            echo        "</td> 
+                                                                        <td>50%</td>
+                                                                        <td>";
+                                                            //Term 1;
+                                                                echo $markTermOne;                                                            
+                                                            echo        "</td>
+                                                                        <td>";
+                                                            //Term 2;
+                                                                echo $markTermTwo;
+                                                            echo       "</td>
+                                                                        <td>";
+                                                            //Term 3;
+                                                                echo $markTermThree;
+                                                            echo       "</td>";
+                                                                        //$sn++;
+                                                            echo " </tr>"; 
+                                                            $sn++;  
+                                                              }     
+                                                    }
                                                 }
                                                     catch(Exception $ex){
                                                         $ravi->phpAlert($ex);
