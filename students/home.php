@@ -10,7 +10,6 @@ else
 {
 	$st_username = $_SESSION['st_user'];
 	$st_name = $ravi->student_info_select($st_username);
-	
 	$student_name_display = $st_name->fetch_assoc();
 }
 
@@ -189,7 +188,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										   											
 											<div class="col-md-12">
 												<?php 
-                                                $ravi->update_to_encrypted('id','admin_password','meadmin');
+                                                
                                                 
 												if(isset($_POST['change_password']))
 												{
@@ -323,7 +322,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<section id="section-5">    
                                             <?php 
                                                 $st_id = $student_name_display['st_id'];
-                                                //echo $st_id;
+                                                //$ravi->phpAlert($st_id); Retrieves correct student id.
                                             ?>
                                                    <p><strong> Results for <?php echo ucfirst($student_name_display['st_fullname']); ?>. In grade <?php    echo ucfirst($student_name_display['st_grade']); ?>.</strong>
 												</p>
@@ -331,10 +330,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                             <?php 
 															
 															$sn = 0;
-															$student_Term_One = $ravi->student_marks_term( $st_id);
+															$student_Term_One = $ravi->student_marks_term($st_id);
 																while($st_res = $student_Term_One->fetch_assoc())		{ 
                                                                     //Get all three elements subject mark and term.
                                                                     $subjectName[$sn] = ($st_res['subject_name']);
+                                                                    //$ravi->phpAlert($subjectName[$sn]);--> Retrieves correct data
                                                                     $mark[$sn] = ($st_res['mark']);
                                                                     $term[$sn] = ($st_res['term']);
                                                                     $sn++;
@@ -345,9 +345,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                             <table class="table table-hover"> 
                                                 
                                                 <?php
-                                                 $rowNumber = count($subjectName);
+                                                //Check to see if there are result for the student.
+                                                    if (isset($subjectName)){
+                                                        $rowNumber = count($subjectName);
+                                                    }
+                                                    else {
+                                                        $rowNumber = 0;                                                 
+                                                    }
                                                  $sn = 0;
                                                 //echo
+                                                try{
                                                      echo "<thead>
 															<tr> 
 															<th>#</th> 
@@ -359,6 +366,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 															</tr> 
 															</thead> 
 															<tbody>";
+                                                if ($rowNumber==0){
+                                                    echo "There are no results for this student.";
+                                                }
                                                     for($i = 0 ; $i <$rowNumber ; $i++){ ?>
                                                         <?php
                                                         echo "<tr> \n
@@ -392,6 +402,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 																	$sn++;
                                                         echo " </tr>";             
                                                           }
+                                                }
+                                                    catch(Exception $ex){
+                                                        $ravi->phpAlert($ex);
+                                                    }
                                                      ?>
 											</table>
 											<div class="mediabox">
