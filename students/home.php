@@ -571,15 +571,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 			<!--//down-->
 			<div class="menu">
-				<ul id="menu">
-					<li><a href="index.html"><i class="fa fa-tachometer"></i> <span>Dashboard</span></a></li>
-
-			
-				
-
-				
-	
-				</ul>
 			</div>
 		</div>
 		<div class="clearfix"></div>
