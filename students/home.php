@@ -10,7 +10,6 @@ else
 {
 	$st_username = $_SESSION['st_user'];
 	$st_name = $ravi->student_info_select($st_username);
-	
 	$student_name_display = $st_name->fetch_assoc();
 }
 
@@ -189,7 +188,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										   											
 											<div class="col-md-12">
 												<?php 
-                                                $ravi->update_to_encrypted('id','admin_password','meadmin');
+                                                
                                                 
 												if(isset($_POST['change_password']))
 												{
@@ -323,7 +322,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<section id="section-5">    
                                             <?php 
                                                 $st_id = $student_name_display['st_id'];
-                                                //echo $st_id;
+                                                //$ravi->phpAlert($st_id); Retrieves correct student id.
                                             ?>
                                                    <p><strong> Results for <?php echo ucfirst($student_name_display['st_fullname']); ?>. In grade <?php    echo ucfirst($student_name_display['st_grade']); ?>.</strong>
 												</p>
@@ -331,11 +330,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                             <?php 
 															
 															$sn = 0;
-															$student_Term_One = $ravi->student_marks_term( $st_id);
+															$student_Term_One = $ravi->student_marks_all($st_id);
 																while($st_res = $student_Term_One->fetch_assoc())		{ 
                                                                     //Get all three elements subject mark and term.
-                                                                    $subjectName[$sn] = ($st_res['subject_name']);
                                                                     $mark[$sn] = ($st_res['mark']);
+                                                                    $subjectName[$sn] = ($st_res['subject_name']);
+                                                                    //$ravi->phpAlert($subjectName[$sn]);--> Retrieves correct data
                                                                     $term[$sn] = ($st_res['term']);
                                                                     $sn++;
                                                                 } 
@@ -345,9 +345,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                             <table class="table table-hover"> 
                                                 
                                                 <?php
-                                                 $rowNumber = count($subjectName);
+                                                //Check to see if there are result for the student.
+                                                    if (isset($subjectName)){
+                                                        $rowNumber = count($subjectName);
+                                                    }
+                                                    else {
+                                                        $rowNumber = 0;                                                 
+                                                    }
                                                  $sn = 0;
                                                 //echo
+                                                try{
                                                      echo "<thead>
 															<tr> 
 															<th>#</th> 
@@ -359,39 +366,58 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 															</tr> 
 															</thead> 
 															<tbody>";
-                                                    for($i = 0 ; $i <$rowNumber ; $i++){ ?>
-                                                        <?php
-                                                        echo "<tr> \n
-                                                                <th scope=\"row\">";
-                                                        echo $sn+1;
-                                                        echo "</th>
-																    <td>";
-                                                        //echo ("Subjects");
-                                                        echo implode(', ', (array)$subjectName[$sn]); 
-                                                        echo        "</td> 
-																    <td>50%</td>
-                                                                    <td>";
-                                                        //echo ("Term 1");
-                                                        
-                                                        if($term[$sn]==5 ){
-                                                            echo implode(', ', (array)$mark[$sn]); 
-                                                        }
-                                                        echo        "</td>
-                                                                    <td>";
-                                                        //echo ("Term 2");
-                                                        if($term[$sn]==6 ){
-                                                            echo implode(', ', (array)$mark[$sn]); 
-                                                        }
-                                                        echo       "</td>
-                                                                    <td>";
-                                                        //echo ("Term 3");
-                                                        if($term[$sn]==7 ){
-                                                            echo implode(', ', (array)$mark[$sn]); 
-                                                        }
-                                                        echo       "</td>";
-																	$sn++;
-                                                        echo " </tr>";             
-                                                          }
+                                                if ($rowNumber==0){
+                                                    echo "There are no results for this student.";
+                                                }
+                                                else{
+                                                        //Get each subject once
+                                                        $subjectArray = array_unique($subjectName);
+                                                        $k=0;
+                                                        for($j = $k ; $j <count($subjectName) ; $j++){
+                                                            
+                                                           if(isset($subjectArray[$j])){
+                                                                $subjectNameArray[$k] = $subjectArray[$j];
+                                                                $k++;
+                                                            }else{
+                                                                //Do nothing*/
+                                                                }   
+                                                         }
+                                                        for($i = 0 ; $i <count($subjectNameArray) ; $i++){ ?>
+                                                            <?php
+                                                            $subjectname = $subjectNameArray[$i];
+                                                            $markTermOne = $ravi->student_marks_selected($st_id, $subjectname, 5);
+                                                            $markTermTwo = $ravi->student_marks_selected($st_id, $subjectname, 6);
+                                                            $markTermThree = $ravi->student_marks_selected($st_id, $subjectname,7);
+                                                            echo "<tr> \n
+                                                                    <th scope=\"row\">";
+                                                            echo $sn+1;
+                                                            echo "</th>
+                                                                        <td>";
+                                                            //echo ("Subjects");
+                                                            echo $subjectname; 
+                                                            echo        "</td> 
+                                                                        <td>50%</td>
+                                                                        <td>";
+                                                            //Term 1;
+                                                                echo $markTermOne;                                                            
+                                                            echo        "</td>
+                                                                        <td>";
+                                                            //Term 2;
+                                                                echo $markTermTwo;
+                                                            echo       "</td>
+                                                                        <td>";
+                                                            //Term 3;
+                                                                echo $markTermThree;
+                                                            echo       "</td>";
+                                                                        //$sn++;
+                                                            echo " </tr>"; 
+                                                            $sn++;  
+                                                              }     
+                                                    }
+                                                }
+                                                    catch(Exception $ex){
+                                                        $ravi->phpAlert($ex);
+                                                    }
                                                      ?>
 											</table>
 											<div class="mediabox">
@@ -422,64 +448,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 					<!--custom-widgets-->
 					<div class="custom-widgets">
-						<div class="row-one">
-							<div class="col-md-3 widget">
-								<div class="stats-left ">
-									<h5>Today</h5>
-									<h4> Users</h4>
-								</div>
-								<div class="stats-right">
-									<label>90</label>
-								</div>
-								<div class="clearfix"> </div>
-							</div>
-							<div class="col-md-3 widget states-mdl">
-								<div class="stats-left">
-									<h5>Today</h5>
-									<h4>Visitors</h4>
-								</div>
-								<div class="stats-right">
-									<label> 85</label>
-								</div>
-								<div class="clearfix"> </div>
-							</div>
-							<div class="col-md-3 widget states-thrd">
-								<div class="stats-left">
-									<h5>Today</h5>
-									<h4>Tasks</h4>
-								</div>
-								<div class="stats-right">
-									<label>51</label>
-								</div>
-								<div class="clearfix"> </div>
-							</div>
-							<div class="col-md-3 widget states-last">
-								<div class="stats-left">
-									<h5>Today</h5>
-									<h4>Alerts</h4>
-								</div>
-								<div class="stats-right">
-									<label>30</label>
-								</div>
-								<div class="clearfix"> </div>
-							</div>
-							<div class="clearfix"> </div>
-						</div>
+						
 					</div>
 					<!--//custom-widgets-->
 
 					<!--/charts-->
 					<div class="charts">
-						<div class="chrt-inner">
-							<!--//weather-charts-->
-							<div class="graph-visualization">
-								<div class="col-md-6 map-1">
-									<h3 class="sub-tittle">Profile </h3>
-
-
-								</div>
-								<div class="col-md-6 map-2">
-									<div class="profile-nav alt">
+						
 										<section class="panel">
 											<div class="user-heading alt clock-row terques-bg">
 												<h3 class="sub-tittle clock">Easy Clock </h3>
@@ -494,13 +469,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 										</section>
 
-									</div>
-								</div>
-								<div class="clearfix"> </div>
 							</div>
-
-
-						</div>
 						<!--/charts-inner-->
 					</div>
 					<!--//outer-wp-->
@@ -545,15 +514,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 			<!--//down-->
 			<div class="menu">
-				<ul id="menu">
-					<li><a href="index.html"><i class="fa fa-tachometer"></i> <span>Dashboard</span></a></li>
-
-			
-				
-
-				
-	
-				</ul>
 			</div>
 		</div>
 		<div class="clearfix"></div>

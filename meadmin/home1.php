@@ -12,7 +12,7 @@
 											<li><a href="#section-2" class="icon-cup"><i class="lnr lnr-lighter"></i> <span>Results</span></a></li>
 											<li><a href="#section-3" class="icon-food"><i class="fa fa-cutlery"></i> <span>Teachers</span></a></li>
 											<li><a href="#section-4" class="icon-lab"><i class="fa fa-flask"></i> <span>Subject</span></a></li>
-											<li><a href="#section-5" class="icon-truck"><i class="fa fa-truck"></i> <span>Order</span></a></li>
+											
 										</ul>
 									</nav>
 									<div class="content tab">
@@ -194,66 +194,11 @@
 
 
 					<!--custom-widgets-->
-					<div class="custom-widgets">
-						<div class="row-one">
-							<div class="col-md-3 widget">
-								<div class="stats-left ">
-									<h5>Total</h5>
-									<h4> Students</h4>
-								</div>
-								<div class="stats-right">
-									<label>90</label>
-								</div>
-								<div class="clearfix"> </div>
-							</div>
-							<div class="col-md-3 widget states-mdl">
-								<div class="stats-left">
-									<h5>Total</h5>
-									<h4>Teachers</h4>
-								</div>
-								<div class="stats-right">
-									<label> 85</label>
-								</div>
-								<div class="clearfix"> </div>
-							</div>
-							<div class="col-md-3 widget states-thrd">
-								<div class="stats-left">
-									<h5>Total</h5>
-									<h4>Courses</h4>
-								</div>
-								<div class="stats-right">
-									<label>51</label>
-								</div>
-								<div class="clearfix"> </div>
-							</div>
-							<div class="col-md-3 widget states-last">
-								<div class="stats-left">
-									<h5>Total</h5>
-									<h4>Passout</h4>
-								</div>
-								<div class="stats-right">
-									<label>30</label>
-								</div>
-								<div class="clearfix"> </div>
-							</div>
-							<div class="clearfix"> </div>
-						</div>
-					</div>
+					
 					<!--//custom-widgets-->
 
 					<!--/charts-->
-					<div class="charts">
-						<div class="chrt-inner">
-							<!--//weather-charts-->
-							<div class="graph-visualization">
-								<div class="col-md-6 map-1">
-									<h3 class="sub-tittle">Profile </h3>
-
-
-								</div>
-								<div class="col-md-6 map-2">
-									<div class="profile-nav alt">
-										<section class="panel">
+					<div class="charts">								
 											<div class="user-heading alt clock-row terques-bg">
 												<h3 class="sub-tittle clock">Easy Clock </h3>
 											</div>
@@ -265,17 +210,7 @@
 
 
 
-										</section>
+										
 
-									</div>
-								</div>
-								<div class="clearfix"> </div>
-							</div>
-
-
-						</div>
-						<!--/charts-inner-->
-					</div>
-					<!--//outer-wp-->
 				</div>
 		
