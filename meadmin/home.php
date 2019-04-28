@@ -225,14 +225,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 						</ul>
 					</li>
-				<li id="menu-academico"><a href="#"><i class="fa fa-table"></i> <span>Database</span> <span class="fa fa-angle-right" style="float: right"></span></a>
-						<ul id="menu-academico-sub">
-							<li id="menu-academico-avaliacoes"><a href="home.php?ravi=student-information">Database Information</a></li>
-							<li id="menu-academico-boletim"><a href="home.php?ravi=add-table">Add Database</a></li>
-							<li id="menu-academico-avaliacoes"><a href="calender.html">Edit Database</a></li>
-							<li id="menu-academico-avaliacoes"><a href="calender.html">Delete Database</a></li>
-						</ul>
-					</li>
+				
 					
 					<li id="menu-academico"><a href="#"><i class="fa fa-file-text-o"></i> <span>Teacher</span> <span class="fa fa-angle-right" style="float: right"></span></a>
 						
