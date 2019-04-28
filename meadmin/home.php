@@ -221,7 +221,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<ul id="menu-academico-sub">
 							<li id="menu-academico-avaliacoes"><a href="home.php?ravi=student-information">Students Information</a></li>
 							<li id="menu-academico-boletim"><a href="home.php?ravi=add-student">Add Students</a></li>
-							<li id="menu-academico-avaliacoes"><a href="calender.html">Delete Students</a></li>
 
 						</ul>
 					</li>
@@ -252,11 +251,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</li>
 					<li id="menu-academico"><a href="#"><i class="lnr lnr-book"></i> <span>List</span> <span class="fa fa-angle-right" style="float: right"></span></a>
 						<ul id="menu-academico-sub">
-							<li id="menu-academico-avaliacoes"><a href="#">Exam List</a></li>
 							<li id="menu-academico-boletim"><a href="home.php?ravi=class-routine">Class Routine</a></li>
-							<li id="menu-academico-boletim"><a href="404.html">Noticeboard</a></li>
-							<li id="menu-academico-boletim"><a href="sign.html">Sign up</a></li>
-							<li id="menu-academico-boletim"><a href="profile.html">Profile</a></li>
 						</ul>
 					</li>
 			
