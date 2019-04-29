@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2019 at 10:46 AM
--- Server version: 10.1.30-MariaDB
--- PHP Version: 5.6.33
+-- Generation Time: Apr 29, 2019 at 01:01 AM
+-- Server version: 10.1.36-MariaDB
+-- PHP Version: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -264,6 +264,30 @@ CREATE TABLE `meadmin` (
 
 INSERT INTO `meadmin` (`id`, `admin_username`, `admin_password`, `t_staff_type`, `image`) VALUES
 (1, 'ravi@ravi', '$2y$12$0uwYKnM8FQCWAMBeJaA3rOW9ocjAy9jdCHJHcuLDADzXuCLshJk/C', 'Admin', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `parent`
+--
+
+CREATE TABLE `parent` (
+  `st_id` int(11) NOT NULL,
+  `pr_username` varchar(20) NOT NULL,
+  `pr_password` varchar(20) NOT NULL,
+  `fathername` varchar(22) NOT NULL,
+  `mothername` varchar(22) NOT NULL,
+  `contact_details` varchar(25) NOT NULL,
+  `address` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `parent`
+--
+
+INSERT INTO `parent` (`st_id`, `pr_username`, `pr_password`, `fathername`, `mothername`, `contact_details`, `address`) VALUES
+(1, 'fikas', '123', 'Martin', 'Hileni', '08125639875', '667 rocky crest'),
+(2, 'ravi2056', 'abc0', 'Hangula Petrus', 'Selma Petrus', '081245682', '2254 hakahana');
 
 -- --------------------------------------------------------
 

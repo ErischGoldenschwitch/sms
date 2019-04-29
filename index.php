@@ -1,7 +1,6 @@
 
 <!--
 	Author: W3layouts
-	Developed By Ravi Khadka
 	Author URL: http://w3layouts.com
 	License: Creative Commons Attribution 3.0 Unported
 	License URL: http://creativecommons.org/licenses/by/3.0/
@@ -511,15 +510,6 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 </div>
 <!-- //team -->
 <!-- contact -->
-	<?php
-	 include "setting/config.php";
-	$general = $ravi->general_setting_check();
-	
-	$general_fetch = $general->fetch_assoc();
-	$general_numss = $general->num_rows;
-	if($general_numss>0)
-	{
-	?>
 <div id="mail" class="contact">
 	<div class="container">
 		<h3 class="w3l-title">Mail Us</h3>
@@ -533,8 +523,8 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 				</div>
 				<div class="agile_contact_grid_right agilew3_contact">
 					<h4>Address</h4>
-					<p><?php echo $general_fetch['website_address']; ?></p>
-					<p>Nepal</p>
+					<p>435 City hall,</p>
+					<p>NewYork City SD092.</p>
 				</div>
 			</div>
 			<div class="col-md-4 col-xs-4 w3_agile_contact_grid">
@@ -543,7 +533,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 				</div>
 				<div class="agile_contact_grid_right agileits_w3layouts_right">
 					<h4>Phone</h4>
-					<p><?php echo $general_fetch['website_phone1']; ?> <span><?php echo $general_fetch['website_phone2']; ?></span></p>
+					<p>+(1234) 2332 232 <span>+(1236) 2334 232</span></p>
 				</div>
 			</div>
 			<div class="col-md-4 col-xs-4 w3_agile_contact_grid">
@@ -552,8 +542,8 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 				</div>
 				<div class="agile_contact_grid_right agileits_w3layouts_right1">
 					<h4>Email</h4>
-					<p><a href="mailto:info@example.com"><?php echo $general_fetch['website_email1']; ?></a>
-						<span><a href="mailto:info@example.com"><?php echo $general_fetch['website_email2']; ?></a></span></p>
+					<p><a href="mailto:info@example.com">info@example1.com</a>
+						<span><a href="mailto:info@example.com">info@example2.com</a></span></p>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
@@ -594,7 +584,8 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 		<div class="wthree_footer_grid_left">
 			<div class="col-md-3 col-xs-3 wthree_footer_grid_left1">
 				<h4>About Us</h4>
-				<p><?php echo $general_fetch['web_about']; ?></p>
+				<p>Donec viverra nunc eu neque porta, quis laoreet nisl gravida. Proin gravida, 
+					diam ut consectetur porttitor.</p>
 			</div>
 			<div class="col-md-3 col-xs-3 wthree_footer_grid_left1">
 				<h4>Navigation</h4>
@@ -618,9 +609,9 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 			<div class="col-md-3 col-xs-3 wthree_footer_grid_left1 wthree_footer_grid_right1">
 				<h4>Contact Us</h4>
 				<ul>
-					<li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href="mailto:info@example.com"><?php echo $general_fetch['website_email1']; ?></a></li>
-					<li><i class="fa fa-phone" aria-hidden="true"></i><?php echo $general_fetch['website_phone1']; ?></li>
-					<li><i class="fa fa-fax" aria-hidden="true"></i><?php echo $general_fetch['website_address']; ?></li>
+					<li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href="mailto:info@example.com">info@example.com</a></li>
+					<li><i class="fa fa-phone" aria-hidden="true"></i>+(000) 123 311</li>
+					<li><i class="fa fa-fax" aria-hidden="true"></i>+123 421</li>
 				</ul>
 			</div>
 			<div class="clearfix"> </div>
@@ -629,125 +620,10 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 </div>
 <div class="w3layouts_copy_right">
 	<div class="container">
-		<p>© <?php echo $general_fetch['website_start']; ?> - 2018 Scholarly. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts.</a> Developed By Ravi Khadka</p>
+		<p>© 2017 Scholarly. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts.</a></p>
 	</div>
 </div>
-	<?php } else{ ?>
-
-	<div id="mail" class="contact">
-	<div class="container">
-		<h3 class="w3l-title">Mail Us</h3>
-		<div class="w3layouts_header">
-			<p><i class="fa fa-graduation-cap" aria-hidden="true"></i></p>
-		</div>
-		<div class="agile_banner_bottom_grids">
-			<div class="col-md-4 col-xs-4 w3_agile_contact_grid">
-				<div class="agile_contact_grid_left">
-					<i class="fa fa-map-marker" aria-hidden="true"></i>
-				</div>
-				<div class="agile_contact_grid_right agilew3_contact">
-					<h4>Address</h4>
-					<p><?php echo "Enter Your Business Address"; ?></p>
-					<p></p>
-				</div>
-			</div>
-			<div class="col-md-4 col-xs-4 w3_agile_contact_grid">
-				<div class="agile_contact_grid_left agileits_w3layouts_left">
-					<i class="fa fa-mobile" aria-hidden="true"></i>
-				</div>
-				<div class="agile_contact_grid_right agileits_w3layouts_right">
-					<h4>Phone</h4>
-					<p><?php echo "Enter Your Business Email"; ?> <span><?php echo "Phone"; ?></span></p>
-				</div>
-			</div>
-			<div class="col-md-4 col-xs-4 w3_agile_contact_grid">
-				<div class="agile_contact_grid_left agileits_w3layouts_left1">
-					 <i class="fa fa-envelope-o" aria-hidden="true"></i>
-				</div>
-				<div class="agile_contact_grid_right agileits_w3layouts_right1">
-					<h4>Email</h4>
-					<p><a href="mailto:info@example.com"><?php echo "Business Email"; ?></a>
-						<span><a href="mailto:info@example.com"><?php echo "Email 2"; ?></a></span></p>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-			<div class="clearfix"> </div>
-		</div>
-		<div class="w3l-form">
-			<h3 class="w3l-title">Get In Touch</h3>
-			<div class="contact-grid1">
-				<div class="contact-top1">
-					<form action="#" method="post">
-						<div class="col-md-6 col-xs-6 wthree_contact_left_grid">
-							<label>Name*</label>
-							<input type="text" name="Name" placeholder="Name" required="">
-							<label>E-mail*</label>
-							<input type="email" name="E-mail" placeholder="E-mail" required="">
-						</div>
-						<div class="col-md-6 col-xs-6 wthree_contact_left_grid">
-							<label>Phone Number*</label>
-							<input type="text" name="number" placeholder="Phone Number" required="">
-							<label>Subject*</label>
-							<input type="text" name="subject" placeholder="Subject" required="">
-						</div>
-						<div class="form-group">
-							<label>Message*</label>
-							<textarea placeholder name="Message" required=""></textarea>
-						</div>
-							<input type="submit" value="Send">
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div id="map"></div>
-<!-- footer -->
-<div class="footer">
-	<div class="container">
-		<div class="wthree_footer_grid_left">
-			<div class="col-md-3 col-xs-3 wthree_footer_grid_left1">
-				<h4>About Us</h4>
-				<p><?php echo "Write About ur Business"; ?></p>
-			</div>
-			<div class="col-md-3 col-xs-3 wthree_footer_grid_left1">
-				<h4>Navigation</h4>
-				<ul>
-					<li><i class="fa fa-angle-double-right" aria-hidden="true"></i><a href="index.html">Home</a></li>
-					<li><i class="fa fa-angle-double-right" aria-hidden="true"></i><a href="#about" class="scroll">About Us</a></li>
-					<li><i class="fa fa-angle-double-right" aria-hidden="true"></i><a href="#services" class="scroll">Services</a></li>
-					<li><i class="fa fa-angle-double-right" aria-hidden="true"></i><a href="#team" class="scroll">Team</a></li>
-					<li><i class="fa fa-angle-double-right" aria-hidden="true"></i><a href="#gallery" class="scroll">Gallery</a></li>
-					<li><i class="fa fa-angle-double-right" aria-hidden="true"></i><a href="#mail" class="scroll">Mail Us</a></li>
-				</ul>
-			</div>
-			<div class="col-md-3 col-xs-3 wthree_footer_grid_left1 w3l-3">
-				<h4>Others</h4>
-				<ul>
-					<li><i class="fa fa-angle-double-right" aria-hidden="true"></i><a href="#">Media</a></li>
-					<li><i class="fa fa-angle-double-right" aria-hidden="true"></i><a href="#">Mobile Apps</a></li>
-					<li><i class="fa fa-angle-double-right" aria-hidden="true"></i><a href="#">Privacy Policy</a></li>
-				</ul>
-			</div>
-			<div class="col-md-3 col-xs-3 wthree_footer_grid_left1 wthree_footer_grid_right1">
-				<h4>Contact Us</h4>
-				<ul>
-					<li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href="mailto:info@example.com"><?php echo $general_fetch['website_email1']; ?></a></li>
-					<li><i class="fa fa-phone" aria-hidden="true"></i><?php echo "Business Phone No"; ?></li>
-					<li><i class="fa fa-fax" aria-hidden="true"></i><?php echo "Business Address"; ?></li>
-				</ul>
-			</div>
-			<div class="clearfix"> </div>
-		</div>
-	</div>
-</div>
-<div class="w3layouts_copy_right">
-	<div class="container">
-		<p>© <?php echo $general_fetch['website_start']; ?> - 2018 Scholarly. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts.</a> Developed By Ravi Khadka</p>
-	</div>
-</div>
-	<?php }?>
-	<!-- //footer -->
+<!-- //footer -->
 
 <!-- js-scripts -->			
 <!-- js-files -->
