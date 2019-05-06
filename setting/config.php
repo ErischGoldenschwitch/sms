@@ -26,37 +26,13 @@ class project2
     }
 	public function student_login_check($st_username,$st_password)
 	{ 
-		//Get password from db
+        //Get password from db
         $st_user_check = $this->student_info_select($st_username);
         $st_user_info = $st_user_check->fetch_assoc();
         $stored_password = $st_user_info['st_password'];     
         //Verify Password from DB
         $verified = $this->password_verification($st_password, $stored_password);
 		return $verified;
-	}
-    
-    
-    ///////////////////Parent info select ////////////////////////
-    
-     public function parent_info_select($pr_username)
-	{
-		$parent_info_sel = "select * from parent where pr_username='$pr_username'";
-		$parent_info_run = $this->connectdb->query($parent_info_sel);
-		
-		return $parent_info_run;
-	}
-    
-    
-    /////////////////////////////// PARENT LOGIN INFO--------------------------
-	
-	public function parent_login_check($pr_username,$parent_pass)
-	{
-		$parent_login_select = "select * from parent where pr_username='$pr_username' AND pr_password='$parent_pass'";
-		
-		$parent_login_run = $this->connectdb->query($parent_login_select);
-		
-		$parent_login_num = $parent_login_run->num_rows;
-		return $parent_login_num;
 	}
 
 	public function student_info_select($st_username)
@@ -66,16 +42,14 @@ class project2
 		
 		return $student_info_run;
 	}
-    
-    
-    
 		
 	
 	/////////////////////////////// ADMINNNNNNNNNNNNNNNNN--------------------------
 	
 	public function meadmin_check($admin_username,$admin_password)
 	{
-		//Get password from DB
+        //Get password from DB
+		
         $meadin_login_select = $this->meadmin_username($admin_username);
         $meadin_info = $meadin_login_select->fetch_assoc();
         $stored_password = $meadin_info['admin_password'];  
@@ -96,11 +70,15 @@ class project2
 	
 	public function teacher_check($teacher_username,$teacher_password)
 	{
-		$teacher_login_select = "select * from teacher_info where t_username='$teacher_username' AND t_pass='$teacher_password'";
 		
-		$teacher_login_run = $this->connectdb->query($teacher_login_select);
-		$teacher_login_num = $teacher_login_run->num_rows;
-		return $teacher_login_num;
+        //Get password from db
+        $teacher_login_select = $this->teacher_username($teacher_username);
+		$teacher_info = $teacher_login_select ->fetch_assoc();
+        $stored_password = $st_user_info['t_pass']; 
+            
+        //Verify Password from DB
+        $verified = $this->password_verification($teacher_password, $stored_password);
+		return $verified;
 	}
     
 	public function teacher_username($teachername)
@@ -150,20 +128,10 @@ class project2
 	
 	public function student_password_change($st_password_update,$st_username)
 	{
-		$student_password_update = "update st_info set st_password='$st_password_update' where st_username='$st_username'";
+        $st_password_hashed = $this->password_hashing($st_password_update);
+		$student_password_update = "update st_info set st_password='$st_password_hashed' where st_username='$st_username'";
 		$student_password_update_run = $this->connectdb->query($student_password_update);
 		return $student_password_update_run;
-	}
-    
-    
-     
-    ///////////////////////// parent password reset //////////
-	
-	public function parent_password_change($pr_password_update,$pr_username)
-	{
-		$parent_password_update = "update st_info set parent_pass='$parent_password_update' where pr_username='$pr_username'";
-		$parent_password_update_run = $this->connectdb->query($parent_password_update);
-		return $parent_password_update_run;
 	}
 	
 	
@@ -250,9 +218,9 @@ class project2
 		return $student_info_display_admin_run;
 	}
 	/////////// add student from admin panel /////////////////////
-	public function add_student($std_fullname,$std_username,$std_password,$std_grade,$std_roll,$std_dob,$std_address,$std_district,$std_gender,$std_father,$std_mother,$std_parent_contact,$std_parent_pass,$std_pr_username)
+	public function add_student($std_fullname,$std_username,$std_password,$std_grade,$std_roll,$std_dob,$std_address,$std_district,$std_gender,$std_father,$std_mother,$std_parent_contact)
 	{
-		$add_student_insert = "insert into st_info(st_fullname,st_username,st_password,st_grade,roll_no,st_dob,st_address,st_district,st_gender,st_father,st_mother,st_parents_contact,parent_pass,pr_username) value('$std_fullname','$std_username','$std_password','$std_grade','$std_roll','$std_dob','$std_address','$std_district','$std_gender','$std_father','$std_mother','$std_parent_contact','$std_parent_pass','$std_pr_username')";
+		$add_student_insert = "insert into st_info(st_fullname,st_username,st_password,st_grade,roll_no,st_dob,st_address,st_district,st_gender,st_father,st_mother,st_parents_contact) value('$std_fullname','$std_username','$std_password','$std_grade','$std_roll','$std_dob','$std_address','$std_district','$std_gender','$std_father','$std_mother','$std_parent_contact')";
 		$add_student_run = $this->connectdb->query($add_student_insert);
 		return $add_student_run;
 	}
@@ -322,7 +290,7 @@ class project2
             
             return $getSubjectDescript_run;
         }        
-    public function student_term_marks($studentClassEnrollment, $subjectCode ,$term)
+    /*public function student_term_marks($studentClassEnrollment, $subjectCode ,$term)
 	{      try
             { 
                 $student_term_report = "select `mark` from marks where ssecode='$studentClassEnrollment' and subject_code ='$subjectCode' and term = '$term'";
@@ -333,49 +301,117 @@ class project2
                 //ignore errors             
             }
 	      
-    }
-    public function student_marks_term( $st_id){
-        $student_term_report = "SELECT mark as mark, C.subject_name,E.st_fullname, term FROM mark as A inner join student_subject_enrol B on A.ssecode=B.scecode inner join subjects_info C on B.subject=C.id inner join student_class_enrol D on D.sccode=B.sccode inner join st_info E on D.scode=E.st_id WHERE E.st_id ='$st_id'";
+    }*/
+    //Get all students results
+    public function student_marks_all( $st_id){
+        $student_term_report = "SELECT mark as mark, C.subject_name,E.st_fullname, term FROM mark as A inner join student_subject_enrol B on A.ssecode=B.scecode inner join subjects_info C on B.subject=C.id inner join student_class_enrol D on D.sccode=B.sccode inner join st_info E on D.scode=E.st_id WHERE E.st_id ='$st_id' ORDER BY C.subject_name, term";
                 $student_term_report_run = $this->connectdb->query($student_term_report);
                 return $student_term_report_run;
         
+    }
+    //Get mark per student, per subject, per term.
+    public function student_marks_selected($st_id, $subjectName, $term){
+        $student_mark_report = "SELECT mark FROM mark as A inner join student_subject_enrol B on A.ssecode=B.scecode inner join subjects_info C on B.subject=C.id inner join student_class_enrol D on D.sccode=B.sccode inner join st_info E on D.scode=E.st_id WHERE E.st_id ='$st_id' AND C.subject_name='$subjectName' AND term='$term' ORDER BY C.subject_name, term";
+        $student_mark_run = $this->connectdb->query($student_mark_report);
+        $i = 0;
+        while($mark_res = $student_mark_run->fetch_assoc()){ 
+            //Get one mark for a subject, for a term and if there are multiple overwrite prior results with the last entered.
+            $mark = $mark_res['mark'];
+        }
+        if(isset($mark)) return $mark;  
+        else return "N/A";
     }
     public function count_student_marks($st_id){
       $student_term_report_count ="  SELECT COUNT(*) FROM mark as A inner join student_subject_enrol B on A.ssecode=B.scecode inner join subjects_info C on B.subject=C.id inner join student_class_enrol D on D.sccode=B.sccode inner join st_info E on D.scode=E.st_id WHERE E.st_id ='$st_id'";
         $student_term_report_count_run = $this->connectdb->query($student_term_report_count);
         return $student_term_report_count_run;
         
-	}
-	
-	//Verifies passwords, returns 1 if password is found.
+    }
+    
+    ///////////////////////////////////////Utilities////////////////////////////////////////////////////////////////////
+       function array_implode(array $a)
+    {//type hint: this function will only work if $a is an array
+        return implode(',',(array)$a);
+    }
+    //Alert function for debugging and activity tracing
+    function phpAlert($msg) {
+        echo "<script>alert('PHP Alert: $msg');</script>";
+        //return $msg;
+    }
+    //Hash Passwords
+    function password_hashing($password){
+        $options = ['cost' => 12,];
+        $hashed_password = password_hash($password, PASSWORD_BCRYPT, $options);
+        return $hashed_password;
+        
+    }
+    //Verifies passwords, returns 1 if password is found.
     function password_verification($userinput,$stored_password){
         $verified = password_verify($userinput,$stored_password);
         return $verified;
     }
-
-    function array_implode(array $a)
-    {//type hinting: this function will only work if $a is an array
-        return implode(',',(array)$a);
+    //Salt function for future improvements on the storage of other data and additional passwords security
+    function salt_password(){
+        $salt = md5('quick salt');
+        return $salt;
     }
-    function phpAlert($msg) {
-        echo '<script type="text/javascript">alert("' . $msg . '")</script>';
+    //Encrypt any sensitive data
+    function ssl_encrypt_password($plaintext){
+        //Encryption relies on AES 256.
+        $method = 'aes-256-cbc';
+        $key = openssl_random_pseudo_bytes(16);
+        $iv = openssl_random_pseudo_bytes(16);
+        //Open SSL Encrypt the plaintext using aes 256, the random keys and the internilization vector
+        $cipherText = openssl_encrypt($plaintext, $method, $key, 0, $iv);
+        $cipherText = $key.$iv.$cipherText;//Adds key and iv to the cipher.
+        $cipherText = base64_encode($cipherText);
+        return $cipherText;
+        
     }
-    
+    //Decrypt data
+    function ssl_decrypt_password($cipherText){
+        //Decryption
+        $cipher = base64_decode($cipherText);
+        $method = 'aes-256-cbc';
+        $key = substr($cipher, 0, 16);//Gets key from cipher substring
+        $iv = substr($cipher, 16, 16);//Gets IV from cipher substring
+        $cipher = substr($cipher, 32);
+        $readableText = openssl_decrypt($cipher, $method, $key, 0, $iv);
+        return $readableText;
+    }
+    //Update all passwords to encrypted passwords
+    function update_to_encrypted($pk ,$column,$table){
+        //Uncomment this when mass update is needed otherwise leave closed as it may cause unnecessary problems
+        /*$counter = 0;
+        
+        $table_info_developer = "select * from $table";//Example is: select * from st_info
+		$table_info_developer_run = $this->connectdb->query($table_info_developer);
+        if($table_info_developer_run->num_rows>0){
+            while($row=$table_info_developer_run->fetch_assoc()){
+                
+                $password_to_hash = $row["$column"];
+                $primary_key = $row["$pk"];
+                $this->phpAlert("Student Password: ". $password_to_hash);
+                
+                $hashed_update = $this->password_hashing($password_to_hash);
+                //$this->phpAlert("Hashed Student Password: ". $hashed_update);
+               
+                $columnVal = 'abc'.$counter;
+                $this->phpAlert("PK: ". $primary_key." and ColVal: ".$hashed_update. " and counter: ".$counter);
+                //$update_sql = "UPDATE $table SET $column = '$hashed_update' WHERE $pk = $counter";
+                //$this->phpAlert("QUERY $update_sql Update Successful");
+                $update_sql_run = $this->connectdb->query($update_sql);
+                //$this->phpAlert("$primary_key Update Successful");   
+                $counter++;
+            }
+        }*/
+        
+    }
+ 
     ///////////////////////////////////////End of prototype/////////////////////////////////////////////////////////////
 
 
 /////////////////////////End of Student Reports////////////////////////////////////////////////////////////////////////////////////////////////
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 	}
 $ravi = new project2;
