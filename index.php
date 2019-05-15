@@ -50,9 +50,43 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 				</form>
 			</div>
 			<ul class="agile_forms">
-				<li><a class="active" href="students/index.php"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign In now</a> </li>
+				<!--<li><a class="active" href="students/index.php"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign In now</a> </li> -->
+                <li><a class="tooltips" href="#" data-toggle="modal" data-target="#add_data_Modal"><span>Sign In now</span><i class="lnr lnr-user"></i></a></li>
 			<!--	<li><a href="#" data-toggle="modal" data-target="#myModal3"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sign Up</a> </li> -->
 			</ul>
+            
+           
+	<div id="add_data_Modal" class="modal fade"-->
+ <div class="modal-dialog">
+  <div class="modal-content">
+   <div class="modal-header">
+    <!--button type="button" class="close" data-dismiss="modal">&times;</button-->
+    <h4 class="modal-title">Profile</h4>
+       
+       <!--Parents-->  
+   <div class="modal-body">
+        <ul class="agile_forms">
+			<!--Parents-->	
+            <li><a class="tooltips" href="../sms/parents/home.php" ><span>Parent Sign In</span></a></li>
+            <!--Teacher-->
+                <li><a class="tooltips" href="../sms/teacher/home.php" ><span>Teacher Sign In</span></a></li>
+            <!--Student-->
+            <li><a class="tooltips" href="../sms/students/home.php" ><span>Student Sign In</span></a></li>
+          </ul>
+   </div>      
+   <div class="modal-footer">
+       <div><br></div>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+   </div>
+  </div>
+ </div>
+</div>
+
+
+
+            
+            
+            
 			
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
