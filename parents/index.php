@@ -10,7 +10,7 @@ if(isset($_POST['parent_signin']))
 {
  $pr_username = $_POST['pr_username'];
 	
-	$parent_pass = $_POST['parent_pass']; 
+	$parent_pass = trim($_POST['parent_pass']); 
 	
 	if($pr_username=="" || $parent_pass=="")
 	{
@@ -18,7 +18,8 @@ if(isset($_POST['parent_signin']))
 	}
 	 else
 	 {
-	$go = $ravi->parent_login_check($pr_username,$parent_pass);
+        //$ravi->update_to_encrypted("st_id" ,'pr_password',"parent");
+	$go = $ravi->parent_check($pr_username,$parent_pass);
 	if($go==1)
 	{
 		$_SESSION['pr_user'] = $pr_username;

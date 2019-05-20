@@ -74,7 +74,7 @@ class project2
         //Get password from db
         $teacher_login_select = $this->teacher_username($teacher_username);
 		$teacher_info = $teacher_login_select ->fetch_assoc();
-        $stored_password = $st_user_info['t_pass']; 
+        $stored_password = $teacher_info['t_pass']; 
             
         //Verify Password from DB
         $verified = $this->password_verification($teacher_password, $stored_password);
@@ -89,6 +89,32 @@ class project2
 	}
 	
 	//////////////////////////////////Teacher Info ////////////////////////////////
+    /////////////////////////////// Parent Login Info--------------------------
+	
+	public function parent_check($parent_username,$parent_password)
+	{
+		
+        //Get password from db
+        //$this->phpAlert("Credentials: User and Password: ".$parent_username."  ".$parent_password);
+        $parent_login_select = $this->parent_info_select($parent_username);
+		$parent_info = $parent_login_select ->fetch_assoc();
+        $stored_user = $parent_info['pr_username'];
+        $stored_password = $parent_info['pr_password'];
+        //$this->phpAlert("Stored_password: ".$stored_password."  "."Stored_user: ".$stored_user."ParentPassword hashed ".$this->password_hashing($parent_password));
+        //Verify Password from DB
+        $verified = $this->password_verification($parent_password, $stored_password);
+        //$this->phpAlert("Verification: ".$verified);
+		return $verified;
+	}
+    
+	public function parent_info_select($parent_username)
+	{
+		$parent_username_select = "select * from parent where pr_username='$parent_username'";
+		$parent_username_run = $this->connectdb->query($parent_username_select);
+		return $parent_username_run;
+	}
+	
+	//////////////////////////////////End Parent Login Info ////////////////////////////////
 	public function teacher_info($adminname,$t_staff_type)
 	{
 		switch($t_staff_type)
@@ -380,33 +406,40 @@ class project2
         return $readableText;
     }
     //Update all passwords to encrypted passwords
-    function update_to_encrypted($pk ,$column,$table){
+    /*function update_to_encrypted($pk ,$column,$table){
         //Uncomment this when mass update is needed otherwise leave closed as it may cause unnecessary problems
-        /*$counter = 0;
+        $counter = 1;
         
-        $table_info_developer = "select * from $table";//Example is: select * from st_info
+        $table_info_developer = "select * from $table";//Example is: select * from "st_info"
 		$table_info_developer_run = $this->connectdb->query($table_info_developer);
         if($table_info_developer_run->num_rows>0){
             while($row=$table_info_developer_run->fetch_assoc()){
-                
-                $password_to_hash = $row["$column"];
-                $primary_key = $row["$pk"];
-                $this->phpAlert("Student Password: ". $password_to_hash);
-                
-                $hashed_update = $this->password_hashing($password_to_hash);
-                //$this->phpAlert("Hashed Student Password: ". $hashed_update);
-               
+              try{  
+                $this->phpAlert("pk ".$pk. "column".$column."table".$table);
                 $columnVal = 'abc'.$counter;
+                $password_to_hash = $columnVal;//$row["$column"];//Use the column name: i.e. "st_password"
+                $primary_key = $row["$pk"];//The tables primary key: i.e. "st_id"
+                //$columnVal = 'abc'.$counter;
+                $this->phpAlert("Password 2 Hash: ". $columnVal);
+                
+                $hashed_update = $this->password_hashing($columnVal);
+                $this->phpAlert("Hashed Password: ". $hashed_update);
+               
+                
                 $this->phpAlert("PK: ". $primary_key." and ColVal: ".$hashed_update. " and counter: ".$counter);
-                //$update_sql = "UPDATE $table SET $column = '$hashed_update' WHERE $pk = $counter";
-                //$this->phpAlert("QUERY $update_sql Update Successful");
+                $update_sql = "UPDATE $table SET $column = '$hashed_update' WHERE $pk = $counter";
+                $this->phpAlert("QUERY $update_sql Update Successful");
                 $update_sql_run = $this->connectdb->query($update_sql);
-                //$this->phpAlert("$primary_key Update Successful");   
+                $this->phpAlert("$primary_key Update Successful");   
                 $counter++;
+              }
+                catch(Exception $e){
+                    continue;
+                }
             }
-        }*/
+        }
         
-    }
+    }*/
  
     ///////////////////////////////////////End of prototype/////////////////////////////////////////////////////////////
 
